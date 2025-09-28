@@ -1,3 +1,8 @@
+Grupo 4
+
+Sistema de Cursos Online
+
+
 Los patrones más apropiados para aplicar en nuestro proyecto son:
 
 Patrones Creacionales:
