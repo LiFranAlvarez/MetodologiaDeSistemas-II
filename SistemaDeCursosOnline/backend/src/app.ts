@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import { connectDB } from './config/db.connect.js';
 
 
 class Server {
@@ -12,8 +13,8 @@ class Server {
         this.app = express();
         this.middlewares();
         this.routes();
-        
     }
+
     middlewares(){
         this.app.use(express.json({limit: '150mb'}));
 
@@ -29,7 +30,8 @@ class Server {
         // this.app.use("/restart",restartRoute);
 
     }
-    start(callback: () => void) {
+    async start(callback: () => void) {
+        await connectDB();
         this.app.listen(this.port, callback);
     }
 }
