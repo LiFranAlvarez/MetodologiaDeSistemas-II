@@ -1,5 +1,5 @@
-import { Estudiante } from "./estudiante";
-import { Docente } from "./docente";
+import { Estudiante } from "./estudiante.js";
+import { Docente } from "./docente.js";
 
 export class Curso {
   constructor(
@@ -15,7 +15,7 @@ export class Curso {
     private lecciones: string[] = []
   ) {}
 
-  // ===== Getters y Setters =====
+  
   public getId(): number { return this.id; }
   public getTitulo(): string { return this.titulo; }
   public setTitulo(titulo: string): void { this.titulo = titulo; }
@@ -27,7 +27,7 @@ export class Curso {
     this.activo = estado;
   }
 
-  // ===== Métodos funcionales =====
+  
   public agregarLeccion(titulo: string): void {
     this.lecciones.push(titulo);
     console.log(`Lección "${titulo}" agregada al curso ${this.titulo}.`);

@@ -1,5 +1,5 @@
-import { Usuario } from "./usuario";
-import { Curso } from "./curso";
+import { Usuario } from "./usuario.js";
+import { Curso } from "./curso.js";
 
 export class Docente extends Usuario {
   constructor(
