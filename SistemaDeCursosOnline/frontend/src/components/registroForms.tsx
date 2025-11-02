@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { UserRegisterData } from '../types/userType';
-import { isEmailValid, isPasswordStrong } from '../utils/validacionesUtils';
+import { isEmailValid, isPasswordStrong } from '../utils/validacionesRegistro';
 
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState<UserRegisterData>({
@@ -11,7 +11,7 @@ const RegisterForm: React.FC = () => {
 
   const [errors, setErrors] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -35,13 +35,13 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', background: '#fff', border: '1px solid #ccc', maxWidth: '400px', margin: '2rem auto' }}>
+  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '2rem', background: '#c1d5ef', border: '1px solid #ccc', maxWidth: '400px', margin: '2rem auto', fontFamily: 'Montserrat' }}>
     <h2>Bienvenido!</h2>
-    <b>Ingrese su nombre:</b>
+    <label>Ingrese su nombre:</label>
     <input type="text" name="nombre" placeholder="Nombre" value={formData.nombre} onChange={handleChange} />
-    <b>Ingrese su email:</b>
+    <label>Ingrese su email:</label>
     <input type="email" name="email" placeholder="Correo electrónico" value={formData.email} onChange={handleChange} />
-    <b>Ingrese su contraseña:</b>
+    <label>Ingrese su contraseña:</label>
     <input type="password" name="password" placeholder="Contraseña" value={formData.password} onChange={handleChange} />
     <button type="submit">Registrarse</button>
 
