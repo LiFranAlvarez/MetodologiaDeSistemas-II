@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import { connectDB } from './config/db.connect.js';
+import Database from './config/db.connect.js';
 
 
 class Server {
@@ -31,7 +31,7 @@ class Server {
 
     }
     async start(callback: () => void) {
-        await connectDB();
+        await Database.getInstance();
         this.app.listen(this.port, callback);
     }
 }
