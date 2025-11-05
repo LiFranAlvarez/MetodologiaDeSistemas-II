@@ -1,5 +1,5 @@
 import { Estudiante } from "./estudiante";
-import { Docente } from "./docente";
+import { Docente } from './docente';
 
 export class Curso {
   constructor(
