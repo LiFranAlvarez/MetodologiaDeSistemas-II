@@ -1,3 +1,7 @@
+import { Estudiante } from "./estudiante";
+import { Docente } from "./docente";
+import { Administrador } from "./administrador";
+
 export class Usuario{
     constructor(
         protected id: number,
@@ -52,6 +56,19 @@ export class Usuario{
     }
     public isConectado(): boolean {
         return this.conectado;
+    }
+
+   public static crearUsuario(tipo: string, props: any): Usuario{
+        switch (tipo) {
+            case "estudiante":
+                return new Estudiante(props.id, props.nombre, props.apellido, props.email, props.password, props.legajo);
+            case "docente":
+                return new Docente(props.id, props.nombre, props.apellido, props.email, props.password, props.especialidad);
+            case "administrador":
+                return new Administrador(props.id, props.nombre, props.apellido, props.email, props.password);
+            default:
+                throw new Error("Tipo de usuario no válido: ${tipo}");
+        }
     }
 
    public login(email?: string, password?: string): boolean {

@@ -1,7 +1,9 @@
 import { Usuario } from "./usuario";
 import { Curso } from "./curso";
+import { evaluacionStrategy } from "./interface/evaluacionStrategy";
 
 export class Docente extends Usuario {
+  private estrategiaEvaluacion?: evaluacionStrategy;
   constructor(
     id: number,
     nombre: string,
@@ -14,6 +16,17 @@ export class Docente extends Usuario {
     private cursosDictados: Curso[] = []
   ) {
     super(id, nombre, apellido, email, password, rol, conectado);
+  }
+
+  setEstrategia(estrategia: evaluacionStrategy): void {
+    this.estrategiaEvaluacion = estrategia;
+  }
+
+  evaluar(respuestas: any): number {
+    if (!this.estrategiaEvaluacion) throw new Error("Estrategia de evaluación no definida.");
+    const nota = this.estrategiaEvaluacion.evaluar(respuestas);
+    console.log(`Evaluación realizada por ${this.nombre}. Nota: ${nota}`);
+    return nota;
   }
 
   public crearCurso(curso: Curso): void {
@@ -33,4 +46,6 @@ export class Docente extends Usuario {
     this.cursosDictados = this.cursosDictados.filter(c => c.getId() !== idCurso);
     console.log(`Curso eliminado por ${this.nombre}`);
   }
+
+
 }
