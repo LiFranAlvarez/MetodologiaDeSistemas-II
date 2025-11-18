@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import  {CursoFiltro}  from '../types/filtrosCursos';
+import  {CursoFiltro}  from '../types/filtrosCursosType';
 
 type BusquedaContextType = {
   filtro: CursoFiltro;

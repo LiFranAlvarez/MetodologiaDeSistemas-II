@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { UserRegisterData } from '../../types/userType';
+import { UserRegisterData } from '../../types/userRegistroType';
 import { registerSchema } from '../../utils/validaciones/validacionesRegistro';
+import "../../styles/forms.css";
 
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState<UserRegisterData>({
@@ -39,20 +40,7 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        padding: '2rem',
-        background: '#c1d5ef',
-        border: '1px solid #ccc',
-        maxWidth: '400px',
-        margin: '2rem auto',
-        fontFamily: 'Montserrat',
-      }}
-    >
+    <form onSubmit={handleSubmit} className="forms">
       <h2>Bienvenido!</h2>
 
       <label>Ingrese su nombre:</label>
@@ -85,7 +73,7 @@ const RegisterForm: React.FC = () => {
       />
       {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
 
-      <button type="submit">Registrarse</button>
+      <button type="submit" className="boton-formulario">Registrarse</button>
 
       {submitted && <p style={{ color: 'green' }}>Registro exitoso (simulado)</p>}
     </form>

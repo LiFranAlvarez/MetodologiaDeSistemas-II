@@ -1,8 +1,16 @@
+import { Clase } from "./claseType";
+import { Material } from "./materialType";
+import { Usuario } from "./usuarioType";
+
 export type Curso = {
-  id?: string;
-  codigo: string;
+  id?: number;
+  codigo:number;
   titulo: string;
+  docente: string;
+  docenteId?: number;
   descripcion: string;
   categoria: string;
-  docente:string;
+  clases?: Clase[];
+  materiales?: Material[];
+  inscriptos?: Usuario[];
 };

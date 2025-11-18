@@ -98,3 +98,35 @@ DONDE?
 
 QUE MAS?
 version mas nueva de vite, pero creeria que no descargue nada mas.
+
+v4- frontend
+
+QUE AGREGUE?
+Expandi el home page, le agregue unos "cursos populares" de ejemplo como para imaginar el producto final.
+Agregue algunos mocks visuales, para ver como quedaria cuando se cargen los cursos y se conecte con el back.Agregue la vista de las clases individuales y la vista de los perfiles de usuario.Modifique algunos css y estilos (todavia faltan muchos). Elimine algunas cosas que se duplicaban (editarCursos), modifique nombres de archivos y agregue datos a los tipos.
+Actualice el App.tsx para que muestre las nuevas rutas.Y alguna ue otra cosa en el header y otros archivos.
+
+IMPORTANTE!! -> los mocks se introducen manualmente dependiento de su ruta.La mayoria empieza con : cursos/...
+
+DONDE?
+/src
+├── components/
+│   ├──catalogo/
+│   │   └── claseCard.tsx                 PEQUEÑAS CAJAS DE LAS CLASES
+│   └──cursoDetalles.tsx                  DETALLES INDIVDUALES DE LOS CURSOS
+├── mocks/
+│   ├── ejemploCursosVistaEdicion.tsx     VISTA SINGULAR DE CURSO
+│   ├── mockVistaCatalogo.tsx             COMO DEBERIA SER Y FUNCIONAR EL CATALOGO
+│   └── mockCursosDatos.ts                CAMBIO DE NOMBRE
+├── pages/
+│   ├── ELIMINE editarCursos.tsx
+│   └── perfilPages.tsx                   VISTA A PERFILES DE USUARIOS
+├── styles/
+│   └── PASE VARIOS DE LOS ESTILOS A CSS     
+└── types/                                CAMBIE NOMBRE DE FILTRO Y USER(registro)
+    ├── clasesType.ts 
+    ├── usuarioType.ts
+    └── materialType.ts.ts
+
+QUE MAS?
+npm install jwt-decode

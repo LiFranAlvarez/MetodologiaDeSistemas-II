@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Curso } from "../../types/cursoType"
 import { cursoSchema } from '../../utils/validaciones/validacionesCursos';
+import "../../styles/forms.css";
 
 type Props = {
   cursoInicial?: Curso;
@@ -10,11 +11,11 @@ type Props = {
 const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
   const [formData, setFormData] = useState<Curso>(
     cursoInicial ?? {
-      codigo: '',
+      codigo: 0,
       titulo: '',
+      docente: '',
       descripcion: '',
       categoria: '',
-      docente: '',
     }
   );
 
@@ -42,16 +43,7 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '1rem',
-        padding: '2rem',
-        background: '#c1d5ef',
-        border: '1px solid #ccc',
-        maxWidth: '400px',
-        margin: '2rem auto',
-      }}>
+    <form onSubmit={handleSubmit} className="forms">
       <h2>{cursoInicial ? 'Editar curso' : 'Crear nuevo curso'}</h2>
 
       <label>Título</label>
@@ -62,7 +54,7 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
       <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} />
       {errors.descripcion && <p style={{ color: 'red' }}>{errors.descripcion}</p>}
 
-      <label>Categoría</label>
+      <label>Categoría</label> */Cambiar las categorias */
       <select name="categoria" value={formData.categoria} onChange={handleChange}>
         <option value="">Seleccionar</option>
         <option value="programacion">Programación</option>
@@ -71,7 +63,7 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
       </select>
       {errors.categoria && <p style={{ color: 'red' }}>{errors.categoria}</p>}
 
-      <button type="submit">{cursoInicial ? 'Guardar cambios' : 'Crear curso'}</button>
+      <button type="submit" className="boton-formulario">{cursoInicial ? 'Guardar cambios' : 'Crear curso'}</button>
     </form>
   );
 };

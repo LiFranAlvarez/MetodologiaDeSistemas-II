@@ -1,0 +1,31 @@
+.busqueda-con-catalogo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  max-width: 500px;
+  min-width: 200px;
+}
+
+.search__input {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 1rem;
+  background-color: white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.catalogo-link {
+  white-space: nowrap;
+  font-weight: 500;
+  color: #1d4ed8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.catalogo-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
