@@ -121,7 +121,7 @@ const CursoDetalleMock = () => {
             </li>
           ))}
         </ul>
-        {editando && <button onClick={agregarClase}> Agregar clase</button>}
+        {editando && <button onClick={agregarClase}>➕ Agregar clase</button>}
       </section>
 
       <section className="clase-card">
@@ -146,7 +146,7 @@ const CursoDetalleMock = () => {
                     value={mat.enlace}
                     onChange={(e) => handleMaterialChange(index, "enlace", e.target.value)}
                   />
-                  <button onClick={() => eliminarMaterial(index)}>Eliminar</button>
+                  <button onClick={() => eliminarMaterial(index)}>🗑️ Eliminar</button>
                 </>
               ) : (
                 <a className="materiales" href={mat.enlace} target="_blank" rel="noopener noreferrer">
@@ -156,15 +156,15 @@ const CursoDetalleMock = () => {
             </li>
           ))}
         </ul>
-        {editando && <button onClick={agregarMaterial}>Agregar material</button>}
+        {editando && <button onClick={agregarMaterial}>➕ Agregar material</button>}
       </section>
 
       {/* Condicional por rol */}
       {usuario.rol === "docente" && usuario.id === curso.docenteId && (
         editando ? (
-          <button onClick={handleGuardar}> Guardar cambios</button>
+          <button onClick={handleGuardar}>💾 Guardar cambios</button>
         ) : (
-          <button onClick={() => setEditando(true)}> Editar curso</button>
+          <button onClick={() => setEditando(true)}>✏️ Editar curso</button>
         )
       )}
     </main>

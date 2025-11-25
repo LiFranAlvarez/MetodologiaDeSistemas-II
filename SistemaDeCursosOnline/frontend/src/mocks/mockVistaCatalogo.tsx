@@ -1,3 +1,4 @@
+// pages/CatalogoCursosMock.tsx
 import { useState, useEffect } from "react";
 import { useBusqueda } from "../context/busquedaContexto";
 import { Curso } from "../types/cursoType";

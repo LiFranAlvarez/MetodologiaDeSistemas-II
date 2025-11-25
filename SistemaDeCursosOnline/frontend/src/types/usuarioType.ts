@@ -1,9 +1,9 @@
+
 export type Usuario = {
-  id: number;
+  _id: string;
   nombre: string;
-  apellido: string;
   password?:string;
   email: string;
-  rol: "estudiante" | "docente" | "administrador";
+  rol: "ALUMNO" | "PROFESOR" | "ADMIN";
   conectado?:boolean;
 };

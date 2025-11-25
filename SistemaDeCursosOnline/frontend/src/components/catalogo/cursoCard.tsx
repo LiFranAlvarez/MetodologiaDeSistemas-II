@@ -1,14 +1,21 @@
+import { Link } from 'react-router-dom';
 import { Curso } from "../../types/cursoType";
 import "../../styles/botonSimple.css";
+import "../../styles/cursoCards.css"
 
 const CursoCard = ({ curso }: { curso: Curso }) => (
-  <div style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "1rem", background: "#f9f9f9" }}>
+  <div className='curso'>
     <h3>{curso.titulo}</h3>
-    <p><strong>Docente:</strong> {curso.docente}</p>
-    <p><strong>Categoría:</strong> {curso.categoria}</p>
+    <p><strong>Docente:</strong> {curso.profesor.nombre}</p>
+    <p><strong>Categoría:</strong> {curso.categorias}</p>
     <p>{curso.descripcion}</p>
-    <button style={{alignContent:"center"}}>Ver más</button>
+    <Link to={`/cursos/${curso._id}`} className='curso-button'>
+      <button>Ver más</button>
+    </Link>
   </div>
 );
+
+
+
 
 export default CursoCard;

@@ -3,13 +3,15 @@ import { Material } from "./materialType";
 import { Usuario } from "./usuarioType";
 
 export type Curso = {
-  id?: number;
-  codigo:number;
+  _id?: number;
   titulo: string;
-  docente: string;
-  docenteId?: number;
+  profesor: {
+    _id:string,
+    nombre:string,
+  };
   descripcion: string;
-  categoria: string;
+  estado: string;
+  categorias: string[];
   clases?: Clase[];
   materiales?: Material[];
   inscriptos?: Usuario[];

@@ -102,11 +102,7 @@ version mas nueva de vite, pero creeria que no descargue nada mas.
 v4- frontend
 
 QUE AGREGUE?
-Expandi el home page, le agregue unos "cursos populares" de ejemplo como para imaginar el producto final.
 Agregue algunos mocks visuales, para ver como quedaria cuando se cargen los cursos y se conecte con el back.Agregue la vista de las clases individuales y la vista de los perfiles de usuario.Modifique algunos css y estilos (todavia faltan muchos). Elimine algunas cosas que se duplicaban (editarCursos), modifique nombres de archivos y agregue datos a los tipos.
-Actualice el App.tsx para que muestre las nuevas rutas.Y alguna ue otra cosa en el header y otros archivos.
-
-IMPORTANTE!! -> los mocks se introducen manualmente dependiento de su ruta.La mayoria empieza con : cursos/...
 
 DONDE?
 /src
@@ -130,3 +126,11 @@ DONDE?
 
 QUE MAS?
 npm install jwt-decode
+
+V4 - frontend 
+
+QUE HICE?
+Cree tres cursos base y dos ususarios, uno profesor y otro alumno.Conecte el registro al bacck para que se guarden los datos y el login, para que se pueda iniciar sesion con esos datos registrados.Modifique el catalogo para que me aparescan los cursos guardados en el back(error al mostrar docente, trabajando es ello) tato en el catalogo como en el home.
+Estoy trabajando el el perfilPages.
+Tambien agregue en el README la informacion para que corra.
+

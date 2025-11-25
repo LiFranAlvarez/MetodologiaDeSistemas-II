@@ -1,12 +1,22 @@
-import axios from 'axios';
-//llamada al backend para los logins
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 export const login = async (data: { email: string; password: string }) => {
-  try {
-    const res = await axios.post('/api/auth/login', data);
-    return res.data;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
-    const msg = err.response?.data?.message || 'Error desconocido';
-    throw new Error(msg);
-  }
+  const res = await fetch(`${API_URL}/api/signin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Error en login");
+  return res.json();
+};
+
+export const register = async (data: { nombre: string; email: string; password: string; rol:string }) => {
+  const res = await fetch(`${API_URL}/api/usuario`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("Error en registro");
+  return res.json();
 };

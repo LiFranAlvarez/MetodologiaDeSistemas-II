@@ -1,8 +1,8 @@
 import {Material} from "./materialType"
 export type Clase = {
-  id: number;
+  _id: string;
   titulo: string;
   fecha: string;
-  estado: "disponible" | "pendiente";
+  estado: "DISPONIBLE" | "PENDIENTE";
   materiales: Material[];
 };

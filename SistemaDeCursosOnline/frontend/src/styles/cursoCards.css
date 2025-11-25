@@ -1,7 +1,34 @@
-.cursocards{
-  max-width: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+.cursocards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
+  max-width: 100%;
+}
+
+.curso {
+  display: flex;
+  flex-direction: column;   /* organiza contenido en columna */
+  justify-content: space-between; /* empuja el botón al final */
+  align-items: center;      /* centra horizontalmente */
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  min-height: 300px; 
+  background: #ffffff;       /* asegura altura uniforme */
+}
+
+.curso-button {
+  width: 100%;              /* todos iguales de ancho */
+  max-width: 200px;         /* límite opcional */
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+.curso button:hover {
+  background-color: #1d4ed8;
+  color:white
 }
