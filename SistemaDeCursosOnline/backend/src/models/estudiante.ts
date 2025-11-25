@@ -30,3 +30,4 @@ export class Estudiante extends Usuario {
     console.log(`${this.nombre} revisa su progreso en los cursos.`);
   }
 }
+export default Estudiante ;

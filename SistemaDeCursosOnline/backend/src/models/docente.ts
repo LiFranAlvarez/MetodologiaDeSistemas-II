@@ -34,3 +34,4 @@ export class Docente extends Usuario {
     console.log(`Curso eliminado por ${this.nombre}`);
   }
 }
+export default Docente ;
