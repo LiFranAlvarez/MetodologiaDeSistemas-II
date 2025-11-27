@@ -9,7 +9,13 @@ export const getCursos = async (): Promise<Curso[]> => {
 };
 
 export const getCursoById = async (id: string | number): Promise<Curso> => {
-  const res = await fetch(`${API_URL}/cursos/${id}`);
+  const res = await fetch(`${API_URL}/cursos/${id}`,{
+    method: "GET",
+    cache: "no-store", // 👈 evita que devuelva 304
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
   if (!res.ok) throw new Error("Error al obtener curso");
   return res.json();
 };

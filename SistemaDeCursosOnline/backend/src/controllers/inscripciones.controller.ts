@@ -48,7 +48,7 @@ class InscripcionesController{
             res.status(400).json(error);
         }
     };
-    async getCursoByUserActiva( req: Request, res: Response ){
+    async getCursoByUser( req: Request, res: Response ){
         try {
             const idUser = req.params.idUser;
             const result = await InscripcionesService.getCursos(idUser);
@@ -68,6 +68,6 @@ class InscripcionesController{
         } catch (error) {
             
         }
-    }
+    };
 }
 export default new InscripcionesController();

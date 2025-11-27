@@ -55,9 +55,9 @@ class UserController{
 
     async getUserById(req : Request, res: Response){
         try {
-            const result = await UserService.getOneUser(req.params.idUser);
+            const result = await UserService.getOneUser(req.params.id);
             if (result === null) {
-                return res.status(200).json({ message : 'No se encontro user con id: ' + req.params.idUser});
+                return res.status(200).json({ message : 'No se encontro user con id: ' + req.params.id});
             }
             res.status(201).json(result);
         } catch (error) {
@@ -70,12 +70,12 @@ class UserController{
     };
     async UpdateUserById(req : Request, res: Response){
         try {
-            const {nombre, email, dni} = req.body;
+            const {nombre, email} = req.body;
             if (typeof nombre !== 'string' || typeof email !== 'string' ) {
                 throw new Error("Para editar un user los campos tienen que ser un string");
             }
-            const idUser = req.params.idUser;
-            const result = await UserService.updateOneUser(idUser, {nombre, email, dni});
+            const id = req.params.id;
+            const result = await UserService.updateOneUser(id, {nombre, email});
             if (result === null) {
                 return res.status(200).json({ message : 'No se pudo actualizar el Usuario'});
             }
@@ -90,7 +90,7 @@ class UserController{
     };
     async deleteUserbyId(req : Request, res: Response){
         try {
-            const result = await UserService.deleteOneUser(req.params.idUser);
+            const result = await UserService.deleteOneUser(req.params.id);
             if (result === null) {
                 return res.status(200).json({ message : 'No se pudo eliminar el Usuario'});
             }

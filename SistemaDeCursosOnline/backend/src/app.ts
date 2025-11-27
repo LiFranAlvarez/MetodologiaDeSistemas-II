@@ -6,7 +6,6 @@ import userRouter from './routes/usuario.route.js';
 import cursoRouter from './routes/curso.route.js';
 import inscripcionRouter from './routes/inscripciones.route.js';
 import authRouter from './routes/auth.route.js';
-import createAdmin from './utils/createAdmin.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 
@@ -42,11 +41,6 @@ class Server {
 
         // Central error handler (al final de todas las rutas)
         this.app.use(errorHandler);
-
-        // this.app.use("/users",userRoute);
-        // this.app.use( "/categories",categoryRoute);
-        // this.app.use("/products",productRouote)
-        // this.app.use("/restart",restartRoute);
 
     }
     async start(callback: () => void) {

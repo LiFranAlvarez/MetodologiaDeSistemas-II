@@ -26,14 +26,21 @@ const PerfilUsuario = () => {
   useEffect(() => {
   const fetchUsuario = async () => {
     try {
-        const userId = auth?.user?._id || sessionStorage.getItem("userId");
-        if (!userId) return;
-        const data = await getUsuarioById(userId);
-        setUsuario({
-          ...data,
-          nombre: data.nombre ?? '',
-          email: data.email ?? ''
-        });
+        let userId = auth?.user?._id;
+      // Si no hay userId del context, usar sessionStorage
+      if (!userId) {
+        userId = localStorage.getItem("userId") || "";
+      }
+      if (!userId) {
+        console.warn("No hay userId disponible");
+        return;
+      }
+      const data = await getUsuarioById(userId);
+      setUsuario({
+        ...data,
+        nombre: data.nombre ?? "",
+        email: data.email ?? "",
+      });
 
         const cursosUsuario = await getCursosByUser(userId);
         setCursos(cursosUsuario);

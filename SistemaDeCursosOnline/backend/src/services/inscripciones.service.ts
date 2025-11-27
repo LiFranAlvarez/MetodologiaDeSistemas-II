@@ -5,7 +5,7 @@ import Curso from '../models/curso.schema';
 import HttpError from '../utils/httpError';
 
 type EstadoInscripcion = 'ACTIVA' | 'CANCELADA';
-interface IInscripcion {
+interface Inscripcion {
     CursoID: Types.ObjectId; 
     usuarioId: Types.ObjectId; 
     fechaInscripcion?: Date;
@@ -57,7 +57,7 @@ class InscripcionService{
 
     async getCursos( idUser: string ){
         try {
-                            if (!idUser) {
+                 if (!idUser) {
                     throw new HttpError("El ID del usuario es requerido", 400);
                 }
                 const cursosInscripto = await Inscripciones.find({ usuarioId: idUser }, 'cursoId');
@@ -81,5 +81,6 @@ class InscripcionService{
             
         }
     }
+    
 }
 export default new InscripcionService();    
