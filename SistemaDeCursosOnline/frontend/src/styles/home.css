@@ -1,0 +1,18 @@
+.fondo{
+    background: #c1d5ef;
+    color: #000000ff;
+    padding: 1rem;
+}
+.cursospopulares{
+    border-radius: 0.5rem;
+    background-color: white;
+    padding: 1rem;
+    gap: 1rem;
+    display: block;
+};
+
+.botoncatalogo{
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: none;
+}

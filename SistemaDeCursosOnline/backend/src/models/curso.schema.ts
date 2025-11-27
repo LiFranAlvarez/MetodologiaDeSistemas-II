@@ -8,7 +8,7 @@ const cursoSchema = new Schema({
         required : [ true, 'El titulo del curso es un campo obligatorio'],
         trim : true
     },
-    describe : String,
+    descripcion : String,
     estado : {
         type : String,
         enum : ['COMPLETADO' , 'EN CURSO' , 'PENDIENTE', 'CANCELADO'],

@@ -3,8 +3,9 @@ import { useState, useEffect, useContext } from "react";
 import { Usuario } from "../types/usuarioType";
 import { getUsuarioById, updateUsuario } from "../services/usuarioServices";
 import { getCursosByUser } from "../services/inscripcionesServices";
-import { AuthContext } from "../context/authProviderContexto";
+import { AuthContext } from "../context/authContexto";
 import "../styles/perfilUsuario.css";
+import "../styles/botonSimple.css"
 
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState<Usuario>({
@@ -25,36 +26,26 @@ const PerfilUsuario = () => {
   useEffect(() => {
   const fetchUsuario = async () => {
     try {
-      const userId =
-        auth?.user?._id ||
-        localStorage.getItem("userId") ||
-        sessionStorage.getItem("userId");
+        const userId = auth?.user?._id || sessionStorage.getItem("userId");
+        if (!userId) return;
+        const data = await getUsuarioById(userId);
+        setUsuario({
+          ...data,
+          nombre: data.nombre ?? '',
+          email: data.email ?? ''
+        });
 
-      console.debug("Perfil: resolved userId ->", userId);
-      if (!userId) return;
-
-      const data = await getUsuarioById(userId);
-      console.log("Usuario recibido:", data);
-      setUsuario(data);
-
-      const cursosUsuario = await getCursosByUser(userId);
-      console.log("Cursos recibidos:", cursosUsuario);
-      setCursos(cursosUsuario);
-
-      setCursosTotales(cursosUsuario.length);
-      setCursosCompletados(
-        cursosUsuario.filter((c: any) => (c.estado || c.estadoCurso) === "COMPLETADO").length
-      );
-      setCursosEnCurso(
-        cursosUsuario.filter((c: any) => (c.estado || c.estadoCurso) === "EN CURSO").length
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  fetchUsuario();
-}, [auth?.user]);
+        const cursosUsuario = await getCursosByUser(userId);
+        setCursos(cursosUsuario);
+        setCursosTotales(cursosUsuario.length);
+        setCursosCompletados(cursosUsuario.filter((c:any) => (c.estado || c.estadoCurso) === 'COMPLETADO').length);
+        setCursosEnCurso(cursosUsuario.filter((c:any) => (c.estado || c.estadoCurso) === 'EN CURSO').length);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUsuario();
+  }, [auth?.user]);
  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!usuario) return;
@@ -63,71 +54,26 @@ const PerfilUsuario = () => {
 
   const handleGuardar = async () => {
     try {
-      if (!usuario) return;
+      const updated = await updateUsuario(usuario._id, { nombre: usuario.nombre, email: usuario.email });
+      
+      setUsuario(updated);
+      
+      // Mantiene la sesión actualizada
+      auth?.setUser(updated); 
 
-      const payload = {
-        nombre: usuario.nombre,
-        email: usuario.email,
-      };
-
-      const data = await updateUsuario(usuario._id, payload);
-      setUsuario(data);
       setEditando(false);
-      console.log("Datos guardados:", usuario);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
   if (!usuario) return <p>Cargando perfil...</p>;
  
   return (
-    <main className="perfil-usuario">
+    <main className="perfil">
       <h1>Perfil de Usuario</h1>
-
-      {/* ===================== ESTADÍSTICAS DE CURSOS ===================== */}
-      <section className="perfil-estadisticas">
-        <h2>Estadísticas</h2>
-        <div className="stats-container">
-          <div className="stat-item">
-            <span className="stat-label">Cursos Totales:</span>
-            <span className="stat-value">{cursosTotales}</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-label">En Curso:</span>
-            <span className="stat-value">{cursosEnCurso}</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-label">Completados:</span>
-            <span className="stat-value">{cursosCompletados}</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ===================== CURSOS DEL USUARIO ===================== */}
-      <section className="perfil-cursos">
-        <h2>Mis cursos</h2>
-
-        {cursosTotales === 0 ? (
-          <p>No estás inscripto en ningún curso.</p>
-        ) : (
-          <div className="curso-listado">
-            {cursos.map((curso: any) => (
-              <div key={curso._id} className="curso-card">
-                <h3>{curso.titulo}</h3>
-                <p>{curso.describe}</p>
-
-                {/* ESTADO DEL CURSO */}
-                <span className={`estado ${curso.estado?.toLowerCase().replace(" ", "-")}`}>
-                  {curso.estado}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
       {/* ===================== DATOS PERSONALES ===================== */}
       <div className="perfil-card">
+        <h2>Informacion personal:</h2>
         <label>
           Nombre:
           {editando ? (
@@ -161,12 +107,50 @@ const PerfilUsuario = () => {
           <span>{usuario.rol}</span>
         </label>
 
-        {editando ? (
-          <button onClick={handleGuardar}>Guardar</button>
+        
+      </div>
+      {/* ===================== ESTADÍSTICAS DE CURSOS ===================== */}
+      <section className="perfil-estadisticas">
+        <h2>Estadísticas</h2>
+        <div className="stats-container">
+          <div className="stat-item">
+            <span className="stat-label">Cursos Totales:</span>
+            <span className="stat-value">{cursosTotales}</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">En Curso:</span>
+            <span className="stat-value">{cursosEnCurso}</span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Completados:</span>
+            <span className="stat-value">{cursosCompletados}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== CURSOS DEL USUARIO ===================== */}
+      <section className="perfil-cursos">
+        <h2>Mis cursos</h2>
+
+        {cursosTotales === 0 ? (
+          <p>No estás inscripto en ningún curso.</p>
+        ) : (
+          <div className="curso-curso-grid">
+            {cursos.map(c => (
+            <div className="curso-card" key={c._id}>
+              <h3>{c.titulo}</h3>
+              <span className={`estado ${c.estado?.toLowerCase().replace(' ', '-')}`}>{c.estado}</span>
+            </div>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {editando ? (
+          <button onClick={handleGuardar} className="btn-edit">Guardar</button>
         ) : (
           <button onClick={() => setEditando(true)}>✏️ Editar</button>
         )}
-      </div>
     </main>
   );
 };

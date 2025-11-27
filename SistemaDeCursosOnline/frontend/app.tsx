@@ -22,8 +22,9 @@ const App = () => {
           <Route path="/cursos" element={<CatalogoCursos/>} />
           <Route path="/cursos/crear" element={<CrearCurso/>}/>
           <Route path="/cursos/:id" element={<CursoDetalle/>}/>
-          {/* rutas de mocks y ejemplos*/}
           <Route path="/perfil" element={<PerfilUsuario/>}/>
+          {/* rutas de mocks y ejemplos*/}
+          
           <Route path="/cursos/mockVista/:id" element={<CursoDetalleMock/>}/> {/*Se ve el curso + se puede editar(si sos profesor)*/}     
           </Routes>
       </main>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { useBusqueda } from '../context/busquedaContexto';
 import { Curso } from '../types/cursoType';
@@ -16,8 +17,12 @@ const CatalogoCursos = () => {
         if (!res.ok) throw new Error("No se pudieron obtener los cursos");
 
         const data = await res.json();
-        setTodosLosCursos(data);
-        setResultados(data);
+        const normalizados = data.map((c: any) => ({
+          ...c,
+          descripcion: c.descripcion || c.describe || "", // 👈 asegura que siempre haya algo
+        }));
+        setTodosLosCursos(normalizados);
+        setResultados(normalizados);
 
       } catch (error) {
         console.error('Error al cargar cursos:', error);
@@ -37,15 +42,17 @@ const CatalogoCursos = () => {
         curso.titulo.toLowerCase().includes(texto) ||
         curso.descripcion?.toLowerCase().includes(texto) ||
         curso.categorias?.some(cat => cat.toLowerCase().includes(texto)) ||
-        curso.profesor?.nombre?.toLowerCase().includes(texto); // si populás profesor
+        (typeof curso.profesor === "object" && curso.profesor?.nombre?.toLowerCase().includes(texto));
+
 
       const categoriaMatch =
         !filtro.categoria ||
         curso.categorias?.includes(filtro.categoria);
 
       const docenteMatch =
-        !filtro.docente ||
-        curso.profesor?._id === filtro.docente;
+      !filtro.docente ||
+      (typeof curso.profesor === "object" && curso.profesor?._id === filtro.docente) ||
+      (typeof curso.profesor === "string" && curso.profesor === filtro.docente);
 
       return textoMatch && categoriaMatch && docenteMatch;
     });

@@ -1,4 +1,3 @@
-
 export type Usuario = {
   _id: string;
   nombre: string;

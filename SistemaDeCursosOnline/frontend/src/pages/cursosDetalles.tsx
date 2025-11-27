@@ -53,7 +53,11 @@ const CursoDetalle = () => {
     <main style={{ padding: "2rem", background: "#f9f9f9" }}>
       <h1>{curso.titulo}</h1>
 
-      <p><strong>Docente:</strong> {curso.profesor?.nombre || "Sin asignar"}</p>
+      <p><strong>Docente:</strong> {
+        (typeof curso.profesor === 'object' && curso.profesor !== null)
+          ? curso.profesor.nombre
+          : "Sin asignar"
+      }</p>
       <p>{curso.descripcion}</p>
 
       <section>
@@ -87,9 +91,11 @@ const CursoDetalle = () => {
         }
       </section>
 
-      {usuario.rol === "PROFESOR" && usuario.id === curso.profesor?._id && (
+     {usuario.rol === "PROFESOR" &&
+      ((typeof curso.profesor === "object" && usuario.id === curso.profesor._id) ||
+      (typeof curso.profesor === "string" && usuario.id === curso.profesor)) && (
         <button style={{ marginTop: "1rem" }}>Editar curso</button>
-      )}
+    )}
 
       {usuario.rol === "ADMIN" && (
         <button style={{ marginTop: "1rem" }}>Gestionar curso</button>

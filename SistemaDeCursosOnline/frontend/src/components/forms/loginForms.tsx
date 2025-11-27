@@ -2,9 +2,9 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginSchema } from "../../utils/validaciones/validacionesLogin";
 import { login } from '../../services/authServices';
-import { AuthContext } from '../../context/authProviderContexto';
+import { AuthContext } from '../../context/authContexto';
 
-// pequeño decodificador JWT local
+
 const decodeJwt = (token: string) => {
   try {
     const payload = token.split('.')[1];

@@ -9,7 +9,7 @@ export type EstadoCurso = 'COMPLETADO' | 'EN CURSO' | 'CANCELADO';
 export interface ICurso {
     _id?: Types.ObjectId; 
     titulo: string; 
-    describe: string; 
+    descripcion: string; 
     estado: EstadoCurso; 
     profesor: Types.ObjectId; 
 }

@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useBusqueda } from "../../context/busquedaContexto";
-import "../../styles/botonesHeader.css"
-import "../../styles/botonCatalogo.css"
-import { AuthContext } from '../../context/authProviderContexto';
+import "../../styles/header.css"
+import { AuthContext } from '../../context/authContexto';
 import { useContext } from 'react';
 const Header = () => {
   const { filtro, setFiltro } = useBusqueda();
@@ -14,17 +13,8 @@ const Header = () => {
     navigate('/');
   }
   return (
-  <header style={{
-      background: "#c1d5ef",
-      marginTop: '0.2rem', 
-      padding: '1rem 2rem',
-      display:"flex",
-      alignItems:"center", 
-      justifyContent:"space-between", 
-      borderRadius:"50px",
-      flexWrap:"wrap",
-      gap:"1rem"
-    }}>
+  <header className='header'>
+      
     <Link to="/">
       <img src="/src/assets/icons/logo.png" alt="Logo" style={{ height: '50px', borderRadius: '100px' }} />
     </Link>
@@ -50,7 +40,7 @@ const Header = () => {
         ) : (
           <>
             <Link to="/perfil" className='login'>Perfil</Link>
-            <button onClick={handleLogout}>Cerrar sesión</button>
+            <button onClick={handleLogout} className='login'>Cerrar sesión</button>
           </>
         )}
     </nav>

@@ -8,62 +8,86 @@ type Props = {
   onSubmit: (curso: Curso) => void;
 };
 
+const SUGERIDAS = ["programación","matemáticas","idiomas","diseño","backend","frontend"];
+
 const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
   const [formData, setFormData] = useState<Curso>(
     cursoInicial ?? {
-      codigo: 0,
-      titulo: '',
-      docente: '',
-      descripcion: '',
-      categoria: '',
+      _id:"",
+      titulo:"",
+      descripcion:"",        // ← este nombre si tu backend usa 'descripcion'
+      profesor:"",
+      categorias:[],
+      clases:[],
+      materiales:[]
     }
   );
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [errors, setErrors] = useState<{ [key:string]:string }>({});
+  const [nuevaCategoria, setNuevaCategoria] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({});
+  // Manejar categorías con autocompletado
+  const handleAddCategoria = () => {
+    if(nuevaCategoria.trim() && !formData.categorias?.includes(nuevaCategoria)){
+      setFormData({...formData, categorias:[...(formData.categorias ?? []), nuevaCategoria]});
+      setNuevaCategoria("");
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleDeleteCategoria = (cat:string)=>{
+    setFormData({...formData, categorias: formData.categorias?.filter(c=>c!==cat)})
+  };
+
+  const handleSubmit = (e:React.FormEvent)=>{
     e.preventDefault();
     const result = cursoSchema.safeParse(formData);
-    if (!result.success) {
-      const rawErrors = result.error.flatten().fieldErrors;
+    if(!result.success){
+      const raw = result.error.flatten().fieldErrors;
       setErrors({
-        titulo: rawErrors.titulo?.[0] ?? '',
-        descripcion: rawErrors.descripcion?.[0] ?? '',
-        categoria: rawErrors.categoria?.[0] ?? '',
+        titulo: raw.titulo?.[0] ?? '',
+        descripcion: raw.descripcion?.[0] ?? '',  // 👁 coincide con formData
       });
       return;
     }
-
-    onSubmit(formData);
+    onSubmit(formData);   // ← esto envía correctamente todo
   };
 
   return (
     <form onSubmit={handleSubmit} className="forms">
-      <h2>{cursoInicial ? 'Editar curso' : 'Crear nuevo curso'}</h2>
+      <h2>{cursoInicial ? "Editar Curso" : "Crear Curso"}</h2>
 
-      <label>Título</label>
-      <input name="titulo" value={formData.titulo} onChange={handleChange} />
-      {errors.titulo && <p style={{ color: 'red' }}>{errors.titulo}</p>}
+      <label> Título </label>
+      <input name="titulo" value={formData.titulo}
+             onChange={e=>setFormData({...formData,titulo:e.target.value})}/>
+      {errors.titulo && <p className="error">{errors.titulo}</p>}
 
-      <label>Descripción</label>
-      <textarea name="descripcion" value={formData.descripcion} onChange={handleChange} />
-      {errors.descripcion && <p style={{ color: 'red' }}>{errors.descripcion}</p>}
+      <label> Descripción </label>
+      <textarea name="descripcion" value={formData.descripcion}
+                onChange={e=>setFormData({...formData,descripcion:e.target.value})}/>
+      {errors.descripcion && <p className="error">{errors.descripcion}</p>}
 
-      <label>Categoría</label> */Cambiar las categorias */
-      <select name="categoria" value={formData.categoria} onChange={handleChange}>
-        <option value="">Seleccionar</option>
-        <option value="programacion">Programación</option>
-        <option value="matematicas">Matemáticas</option>
-        <option value="idiomas">Idiomas</option>
-      </select>
-      {errors.categoria && <p style={{ color: 'red' }}>{errors.categoria}</p>}
+      <label>Categorías</label>
 
-      <button type="submit" className="boton-formulario">{cursoInicial ? 'Guardar cambios' : 'Crear curso'}</button>
+      {/* Chips visuales */}
+      <div className="chips">
+        {formData.categorias?.map(cat=>(
+          <span key={cat} className="chip">{cat} <b onClick={()=>handleDeleteCategoria(cat)}>×</b></span>
+        ))}
+      </div>
+
+      {/* Autocompletar */}
+      <input list="cat-list" value={nuevaCategoria}
+             placeholder="Agregar categoría..."
+             onChange={(e)=>setNuevaCategoria(e.target.value)}/>
+      <datalist id="cat-list">
+        {SUGERIDAS.map(s=><option key={s} value={s}/>)}
+      </datalist>
+
+      <button type="button" onClick={handleAddCategoria}>Agregar</button>
+
+      <button type="submit" className="boton-formulario">
+        {cursoInicial ? "Guardar" : "Crear Curso"}
+      </button>
     </form>
   );
 };

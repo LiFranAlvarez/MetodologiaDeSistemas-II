@@ -1,25 +1,39 @@
+* {
+    box-sizing: border-box; 
+}
 .cursocards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1rem;
   max-width: 100%;
 }
+.cursos-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+}
 
+@media (min-width: 768px) {
+    .cursos-grid {
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 1.5rem;
+    }
+}
 .curso {
   display: flex;
-  flex-direction: column;   /* organiza contenido en columna */
-  justify-content: space-between; /* empuja el botón al final */
-  align-items: center;      /* centra horizontalmente */
+  flex-direction: column;   
+  justify-content: space-between; 
+  align-items: center;     
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   min-height: 300px; 
-  background: #ffffff;       /* asegura altura uniforme */
+  background: #ffffff;       
 }
 
 .curso-button {
-  width: 100%;              /* todos iguales de ancho */
-  max-width: 200px;         /* límite opcional */
+  width: 100%;              
+  max-width: 200px;        
   padding: 0.5rem 1rem;
   text-align: center;
   border: none;

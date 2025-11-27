@@ -5,8 +5,7 @@ import "../../styles/forms.css";
 import { register } from '../../services/authServices';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../../context/authProviderContexto';
-
+import { AuthContext } from '../../context/authContexto';
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState<UserRegisterData>({
     nombre: '',

@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Curso } from "../types/cursoType";
 import CursoCard from "../components/catalogo/cursoCard";
+import "../styles/home.css"
 
 const HomePage: React.FC = () => {
-    const [cursos, setCursos] = useState<any[]>([]);
+    const [cursos, setCursos] = useState<Curso[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -15,7 +17,15 @@ const HomePage: React.FC = () => {
                 if (!resp.ok) throw new Error("No se pudieron cargar los cursos");
                 
                 const data = await resp.json();
-                setCursos(data);
+                const tresPrimerosCursos = data.slice(0, 3);
+                const normalizados = tresPrimerosCursos.map((c: any) => ({
+                    ...c,
+                    descripcion: c.descripcion || c.describe || "", 
+                    categorias: Array.isArray(c.categorias) ? c.categorias : [], 
+                }));
+
+                setCursos(normalizados);
+
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -28,34 +38,30 @@ const HomePage: React.FC = () => {
 
     return (
         <main>
-            <div style={{ background: "#c1d5ef", color: '#000000ff', padding: '1rem' }}>
+            <div className="fondo">
 
-                <h2>HOME en proceso !!! 🏗️</h2>
-                <p>Fotitos con algún slogan</p>
-
-                <section style={{
-                    borderRadius: "0.5rem",
-                    backgroundColor: "white",
-                    padding: "1rem",
-                    display: "grid",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gridTemplateColumns: 'repeat(auto-fill)', 
-                    gap: '1rem'
-                }}>
+                <div className="hero-section"> {/* Usa clase CSS */}
+                    <h1>¡Impulsa tu carrera con nuestros cursos online!</h1>
+                    <p>Aprende de los mejores profesionales en tecnología y negocios.</p>
+                    
+                    
+                </div>
+                <section className="cursos-populares"> 
                     <h2>Cursos populares</h2>
 
                     {loading && <p>Cargando cursos...</p>}
                     {error && <p style={{ color: "red" }}>{error}</p>}
+                    {!loading && !error && cursos.length === 0 && (
+                        <p>¡Ups! Parece que aún no hay cursos cargados. Vuelve pronto.</p>
+                    )}
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem' }}>
+                    <div className="cursos-grid"> 
                         {cursos.map((curso) => (
                             <CursoCard key={curso._id} curso={curso} />
                         ))}
                     </div>
 
-                    <Link to="/cursos"
-                        style={{ display: 'inline-block', marginTop: '1rem', textDecoration: 'none' }}>
+                    <Link to="/cursos" className="boton-catalogo">
                         Ver catálogo completo
                     </Link>
                 </section>

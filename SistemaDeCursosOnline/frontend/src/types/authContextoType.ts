@@ -12,4 +12,5 @@ export type AuthContextType = {
   isAuthenticated: boolean;
   login: (token: string) => void;
   logout: () => void;
+   setUser: (user: JwtPayload | null) => void; 
 };
