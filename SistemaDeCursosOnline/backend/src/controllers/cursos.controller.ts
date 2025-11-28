@@ -20,9 +20,13 @@ class CursosController{
             res.status(400).json(error);
         }
     };
-   async getCursoById(req: Request, res: Response) {
+    async getCursoById(req: Request, res: Response) {
         try {
-            const curso = await CursosService.getById(req.params.idCurso);
+            const {idCurso}=req.params;
+            if(!mongoose.Types.ObjectId.isValid(idCurso)){
+                return res.status(400).json({message:"ID inválido"})
+            }
+            const curso = await CursosService.getById(req.params.idCurso).populate("profesor");
 
             if (!curso) 
                 return res.status(404).json({ message: "Curso no encontrado" });
@@ -30,37 +34,45 @@ class CursosController{
             return res.status(200).json(curso);
 
         } catch (error) {
-            console.error(error);
+            console.error("Error en getCursoById",error);
             return res.status(500).json({ message: "Error al obtener el curso" });
         }
     }
 
-    async createCurso( req: Request, res: Response){
-            // JSON de ejemplo
-            // {
-            // "titulo": "Introducción a la Programación Web",
-            // "describe": "Un curso inicial que cubre HTML, CSS y fundamentos de JavaScript.",
-            // "profesor": "654e83f0a7c9d2b1e4f6a8c1", un usuario que tenga de rol profesor
-            // }
+    async createCurso(req: Request, res: Response) {
         try {
-            const data = (req.body);
-            if (!mongoose.Types.ObjectId.isValid(data.profesor)) {
-                throw new HttpError('El id del profesor no es valido (CursoController.createCurso', 400)
-            };
-            const profesor = await userService.getOneUser(data.profesor);
-            if (profesor?.rol !== 'PROFESOR' || !profesor) {
-                throw new HttpError("Al crear un curso se le debe asignar un usuario con rol : PROFESOR", 400);
+            const data = req.body;
+            console.log(data)
+            // Normalizar profesor: si viene como objeto {$oid: "..."} lo convertimos
+            const profesorId = typeof data.profesor === "object" && data.profesor.$oid 
+            ? data.profesor.$oid 
+            : data.profesor;
+
+            if (!mongoose.Types.ObjectId.isValid(profesorId)) {
+            throw new HttpError("El id del profesor no es válido (CursoController.createCurso)", 400);
             }
-            const result = await CursosService.createOne(data);
+
+            const profesor = await userService.getOneUser(profesorId);
+
+            if (!profesor || profesor.rol !== "PROFESOR") {
+            throw new HttpError("Al crear un curso se le debe asignar un usuario con rol: PROFESOR", 400);
+            }
+
+            const result = await CursosService.createOne({
+            ...data,
+            profesor: profesorId // guardamos como string
+            });
+
             res.status(201).json(result);
         } catch (error) {
             if (error instanceof HttpError) {
-                return res.status(error.status).json({message : error.message})
+            return res.status(error.status).json({ message: error.message });
             }
             console.error(error);
-            res.status(400).json(error);
+            res.status(500).json({ message: "Error interno del servidor" });
         }
-    };
+    }
+
     async updateCurso( req: Request, res: Response){
         try {
             const idCurso = req.params.idCurso;
@@ -80,12 +92,12 @@ class CursosController{
     };
     async deleteCurso( req: Request, res: Response){
         try {
-            const idCUrso = req.params.idCurso;
-            const result = await CursosService.deleteOne(idCUrso);
+            const idCurso = req.params.idCurso;
+            const result = await CursosService.deleteOne(idCurso);
             if (!result) {
                 return res.status(200).json({message : 'No se encontro curso para eliminar'})
             }
-            return res.status(200).json({message : `Curso id: ${idCUrso} ELIMINADO`, curso : result})
+            return res.status(200).json({message : `Curso id: ${idCurso} ELIMINADO`, curso : result})
         } catch (error) {
             if (error instanceof HttpError) {
                 return res.status(error.status).json({message : error.message})

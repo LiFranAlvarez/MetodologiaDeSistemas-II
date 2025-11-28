@@ -6,19 +6,21 @@ class InscripcionesController{
     async nuevaInscripcion( req: Request, res: Response ){
         try {
             const { idCurso, idUser} = req.params;
-            console.log(idCurso);
-            console.log(idUser);
+            console.log("Inscripción solicitada para:", idCurso, idUser); // Log de los IDs recibidos
             const result = await InscripcionesService.createOne(idCurso, idUser);
-            if (result === null) {
-                return res.status(204).json({ message : 'No se puedo crear'});
-            }
+            
+            // ... (manejo de result === null)
+            
             res.status(201).json(result);
         } catch (error) {
             if (error instanceof HttpError) {
+                // Devuelve 409 o 400/500 según lo que lance el service
                 return res.status(error.status).json({message : error.message})
             }
-            console.error(error);
-            res.status(400).json(error);
+            
+            console.error("Error no clasificado en Controller:", error);
+            // Si no es un HttpError, es un fallo del controlador/Express
+            res.status(500).json({ error: "Error interno del servidor." }); 
         }
     };
     async cancelInscripcion( req: Request, res: Response ){
