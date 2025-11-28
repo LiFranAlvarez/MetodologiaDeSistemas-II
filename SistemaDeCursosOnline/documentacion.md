@@ -37,41 +37,6 @@ Frontend
 - React Router  
 - Fetch API para comunicación con backend  
 
----
-
-Estructura del Proyecto
-
-Backend
-
-
-backend/
-├── src/
-│ ├── controllers/
-│ ├── services/
-│ ├── routes/
-│ ├── middlewares/
-│ ├── models/
-│ └── app.ts
-├── package.json
-├── tsconfig.json
-└── .env
-
-
-Frontend
-
-
-frontend/
-├── src/
-│ ├── components/
-│ ├── pages/
-│ ├── routes/
-│ └── services/
-├── app.tsx
-├── package.json
-├── vite.config.ts
-└── .env
-
-
 Instalación
 
 Clonar el repositorio
