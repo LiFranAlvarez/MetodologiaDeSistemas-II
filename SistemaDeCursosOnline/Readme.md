@@ -51,9 +51,79 @@ npx tsc
 node dist/index.js
 ```
 
-Variables de entorno (usa `backend/.env.example` como plantilla). Asegúrate de tener MongoDB corriendo y `DB_URI` apuntando a él.
 
-2) Frontend
+POST MAN 
+1|cargar un profesor -> POST http://localhost:3000/api/usuario
+{
+  "nombre": "PROFESOR 1 ",
+  "email": "profesor1@hotmail.com",
+  "password": "profesor" ,
+  "rol": "PROFESOR",
+}
+
+2| cargar clases -> POST http://localhost:3000/api/clases
+[
+    {
+    "titulo": "Introducción a Node.js",
+    "estado": "DISPONIBLE",
+    "linkGrabacion": "https://youtu.be/nodejs-intro",
+    },
+    {
+    "titulo": "Express y Rutas Básicas",
+    "estado": "PENDIENTE",
+    "linkGrabacion": "",
+    }
+]
+
+3| cargar material -> POST http://localhost:3000/api/materiales
+
+[{
+  "titulo": "Guía de Wireframes",
+  "tipo": "PDF",
+  "enlace": "https://uxdocs.com/wireframes-guide.pdf",
+},
+{
+  "titulo": "Prototipado con Figma",
+  "tipo": "Video",
+  "enlace": "https://vimeo.com/figma-prototyping",
+}
+]
+
+4| cargar cursos -> POST  http://localhost:3000/api/cursos
+
+{
+  "titulo": "Programación Backend con Node.js",
+  "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.",
+  "estado": "PENDIENTE",
+  "profesor": {
+    "ID PROFESOR"
+  },
+  "clases": [
+    {
+      "ID DE PRMER CLASE"
+    },
+    {
+      "ID DE SEGUNDA CLASE"
+    },
+  ],
+  "materiales": [
+    {
+      ID DE UN MATERIAL
+    },
+    {
+      ID DE OTRO MATERIAL
+    }
+  ],
+  "categorias": [
+    "Backend",
+    "APIs",
+    "JavaScript"
+  ]
+}
+
+
+
+1) Frontend
 
 ```powershell
 cd frontend
