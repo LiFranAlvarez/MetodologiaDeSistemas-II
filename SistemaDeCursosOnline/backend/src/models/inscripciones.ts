@@ -19,8 +19,8 @@ const inscripcionSchema = new Schema({
     },
     estadoInscripcion : {
         type : String,
-        enum : ['ACTIVA' , 'CANCELADA'],
-        default : 'ACTIVA'
+        enum : ["EN_PROCESO", "ABANDONADA", "TERMINADA"],
+        default : 'EN_PROCESO'
     }
 });
 inscripcionSchema.index({ cursoId: 1, usuarioId: 1 }, { unique: true });

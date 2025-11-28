@@ -8,7 +8,7 @@ const cursoSchema = new Schema({
         required : [ true, 'El titulo del curso es un campo obligatorio'],
         trim : true
     },
-    descripcion : String,
+    descripcion : { type: String, required: true },
     estado : {
         type : String,
         enum : ['COMPLETADO' , 'EN CURSO' , 'PENDIENTE', 'CANCELADO'],
@@ -16,7 +16,8 @@ const cursoSchema = new Schema({
     },
     profesor: {
         type: Schema.Types.ObjectId,
-        ref: 'Usuario'
+        ref: 'Usuario',
+        required: true
     },
     clases: [{
         type: Schema.Types.ObjectId,
@@ -24,8 +25,8 @@ const cursoSchema = new Schema({
     }],
     materiales: [{
         type: Schema.Types.ObjectId,
-        ref: "Material"
-        }],
+        ref: 'Material'
+    }],
     categorias: {
         type: [String],
         default: []

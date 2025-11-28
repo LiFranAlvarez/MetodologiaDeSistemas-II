@@ -6,10 +6,9 @@ import RegisterPage from './src/pages/registroPages';
 import LoginPage from "./src/pages/loginPages";
 import CatalogoCursos from './src/pages/catalogoCursos';
 import CrearCurso from './src/pages/crearCurso';
-import CursoDetalle from './src/pages/cursosDetalles';
+import CursoDetalle from './src/pages/cursosDetallesPage';
 import PerfilUsuario from './src/pages/perfilPages';
-//mocks de vistas
-import CursoDetalleMock from './src/mocks/ejemploCursosVistaEdicion';//mock de como se ve un curso
+
 const App = () => {
   return (
       <Router>
@@ -21,11 +20,9 @@ const App = () => {
           <Route path="/auth/login" element={<LoginPage />} />
           <Route path="/cursos" element={<CatalogoCursos/>} />
           <Route path="/cursos/crear" element={<CrearCurso/>}/>
-          <Route path="/cursos/:id" element={<CursoDetalle/>}/>
+          <Route path="/cursos/:idCurso" element={<CursoDetalle/>}/>
           <Route path="/perfil" element={<PerfilUsuario/>}/>
-          {/* rutas de mocks y ejemplos*/}
-          
-          <Route path="/cursos/mockVista/:id" element={<CursoDetalleMock/>}/> {/*Se ve el curso + se puede editar(si sos profesor)*/}     
+         
           </Routes>
       </main>
       <Footer />

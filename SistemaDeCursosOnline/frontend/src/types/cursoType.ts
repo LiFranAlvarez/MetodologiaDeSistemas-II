@@ -1,6 +1,5 @@
-export type Clase = { _id?: string; titulo: string; fecha?: string; duracion?: number };
-export type Material = { _id?: string; titulo: string; tipo?: string; enlace?: string };
-
+import { Clase } from "./claseType";
+import { Material } from "./materialType";
 export type Curso = {
   _id: string;
   titulo: string;

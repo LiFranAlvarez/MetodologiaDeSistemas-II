@@ -3,4 +3,5 @@ export type Material = {
   tipo: string;
   titulo: string;
   enlace: string;
+  fechaSubida: Date;
 };

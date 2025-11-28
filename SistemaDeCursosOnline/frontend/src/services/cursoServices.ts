@@ -3,15 +3,16 @@ import { Curso } from "../types/cursoType";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export const getCursos = async (): Promise<Curso[]> => {
-  const res = await fetch(`${API_URL}/cursos`);
+  const res = await fetch(`${API_URL}/api/cursos`);
   if (!res.ok) throw new Error("Error al obtener cursos");
   return res.json();
 };
 
-export const getCursoById = async (id: string | number): Promise<Curso> => {
-  const res = await fetch(`${API_URL}/cursos/${id}`,{
+export const getCursoById = async (idCurso: string | number): Promise<Partial<Curso>> => {
+  
+  const res = await fetch(`${API_URL}/api/cursos/${idCurso}`,{
     method: "GET",
-    cache: "no-store", // 👈 evita que devuelva 304
+    cache: "no-store", //  evita que devuelva 304
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
@@ -21,7 +22,7 @@ export const getCursoById = async (id: string | number): Promise<Curso> => {
 };
 
 export const createCurso = async (curso: Curso): Promise<Curso> => {
-  const res = await fetch(`${API_URL}/cursos`, {
+  const res = await fetch(`${API_URL}/api/cursos`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(curso),
@@ -30,8 +31,8 @@ export const createCurso = async (curso: Curso): Promise<Curso> => {
   return res.json();
 };
 
-export const updateCurso = async (id: string | number, curso: Curso): Promise<Curso> => {
-  const res = await fetch(`${API_URL}/cursos/${id}`, {
+export const updateCurso = async (idCurso: string | number, curso: Curso): Promise<Partial<Curso>> => {
+  const res = await fetch(`${API_URL}/api/cursos/${idCurso}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -43,8 +44,8 @@ export const updateCurso = async (id: string | number, curso: Curso): Promise<Cu
   return res.json();
 };
 
-export const deleteCurso = async (id: string | number): Promise<void> => {
-  const res = await fetch(`${API_URL}/cursos/${id}`, {
+export const deleteCurso = async (idCurso: string | number): Promise<void> => {
+  const res = await fetch(`${API_URL}/api/cursos/${idCurso}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -54,8 +55,8 @@ export const deleteCurso = async (id: string | number): Promise<void> => {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getCursosByProfesor = async (idProfesor: string): Promise<any[]> => {
-  const res = await fetch(`${API_URL}/api/cursos/profesor/${idProfesor}`, {
+export const getCursosByProfesor = async (idCursoProfesor: string): Promise<any[]> => {
+  const res = await fetch(`${API_URL}/api/cursos/profesor/${idCursoProfesor}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
