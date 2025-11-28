@@ -109,7 +109,11 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
           alert("Hubo un error al finalizar el curso."); 
         } 
   }; 
-  const contenidoVisible = !esAlumno || estado !== "NO_INSCRIPTO"; 
+  const contenidoVisible =
+  esAdmin ||
+  puedeEditar ||
+  (esAlumno && estado !== "NO_INSCRIPTO");
+
   return (
     <div className="curso-detalle-container">
       {/* ===================== HEADER ===================== */}
