@@ -45,8 +45,13 @@ const PerfilUsuario = () => {
         const cursosUsuario = await getCursosByUser(userId);
         setCursos(cursosUsuario);
         setCursosTotales(cursosUsuario.length);
-        setCursosCompletados(cursosUsuario.filter((c:any) => (c.estado || c.estadoCurso) === 'COMPLETADO').length);
-        setCursosEnCurso(cursosUsuario.filter((c:any) => (c.estado || c.estadoCurso) === 'EN CURSO').length);
+        setCursosCompletados(
+        cursosUsuario.filter((c:any) => c.estadoInscripcion === "TERMINADA" || c.estadoInscripcion==="COMPLETADO").length
+        );
+
+    setCursosEnCurso(
+      cursosUsuario.filter((c:any) => c.estadoInscripcion === "EN_PROCESO" || c.estadoInscripcion==="EN_CURSO").length
+    );
       } catch (err) {
         console.error(err);
       }
@@ -146,7 +151,7 @@ const PerfilUsuario = () => {
             {cursos.map(c => (
             <div className="curso-card" key={c._id}>
               <h3>{c.titulo}</h3>
-              <span className={`estado ${c.estado?.toLowerCase().replace(' ', '-')}`}>{c.estado}</span>
+              <span className={`estado ${c.estado?.toLowerCase().replace(' ', '-')}`}>{c.estadoInscripcion}</span>
             </div>
             ))}
           </div>
