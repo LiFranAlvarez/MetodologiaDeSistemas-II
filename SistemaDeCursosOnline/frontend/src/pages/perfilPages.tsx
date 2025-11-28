@@ -24,38 +24,41 @@ const PerfilUsuario = () => {
   
 
   useEffect(() => {
-  const fetchUsuario = async () => {
+    const fetchUsuario = async () => {
     try {
-        let userId = auth?.user?._id;
-      // Si no hay userId del context, usar sessionStorage
-      if (!userId) {
-        userId = localStorage.getItem("userId") || "";
-      }
-      if (!userId) {
-        console.warn("No hay userId disponible");
-        return;
-      }
+      let userId = auth?.user?._id;
+      if (!userId) userId = localStorage.getItem("userId") || "";
+      if (!userId) return;
+
       const data = await getUsuarioById(userId);
       setUsuario({
         ...data,
         nombre: data.nombre ?? "",
         email: data.email ?? "",
       });
+      const inscripciones = await getCursosByUser(userId);
+      const cursosUsuario = inscripciones.map((i: any) => ({
+        ...(typeof i.cursoId === "object" ? i.cursoId : {}),  // toma datos reales del curso
+        estado: i.estadoInscripcion,                          // nombre unificado
+        _idInscripcion: i._id,
+      }));
 
-        const cursosUsuario = await getCursosByUser(userId);
-        setCursos(cursosUsuario);
-        setCursosTotales(cursosUsuario.length);
-        setCursosCompletados(
-        cursosUsuario.filter((c:any) => c.estadoInscripcion === "TERMINADA" || c.estadoInscripcion==="COMPLETADO").length
-        );
+      setCursos(cursosUsuario);
 
-    setCursosEnCurso(
-      cursosUsuario.filter((c:any) => c.estadoInscripcion === "EN_PROCESO" || c.estadoInscripcion==="EN_CURSO").length
-    );
-      } catch (err) {
-        console.error(err);
-      }
-    };
+      setCursosTotales(cursosUsuario.length);
+      setCursosCompletados(
+        cursosUsuario.filter(c => c.estado === "TERMINADA" || c.estado === "COMPLETADO").length
+      );
+
+      setCursosEnCurso(
+        cursosUsuario.filter(c => c.estado === "EN_PROCESO" || c.estado === "EN_CURSO").length
+      );
+
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
     fetchUsuario();
   }, [auth?.user]);
  
@@ -151,7 +154,8 @@ const PerfilUsuario = () => {
             {cursos.map(c => (
             <div className="curso-card" key={c._id}>
               <h3>{c.titulo}</h3>
-              <span className={`estado ${c.estado?.toLowerCase().replace(' ', '-')}`}>{c.estadoInscripcion}</span>
+              <p>{c.descripcion}</p>
+              <span className="estado">{c.estado}</span>
             </div>
             ))}
           </div>
