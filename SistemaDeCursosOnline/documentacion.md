@@ -2,7 +2,7 @@ Documentación del Proyecto
 
 Sistema de Gestión de Cursos Online
 
-1. Descripción General
+Descripción General
 
 Este proyecto es un sistema completo para la gestión de cursos online compuesto por un backend en Node.js + TypeScript y un frontend en React + Vite.
 El objetivo principal del sistema es permitir la administración de cursos, usuarios y contenido educativo, brindando una experiencia fluida tanto para alumnos como para administradores.
@@ -78,8 +78,6 @@ Gestión de cursos
 Gestión de usuarios
 
 Envío y recepción de datos en JSON
-
-La documentación de endpoints puede generarse con Swagger / OpenAPI siguiendo las recomendaciones de Clase 8.
 
 Documentación Técnica Interna
 
