@@ -5,6 +5,7 @@ import { Curso } from "../types/cursoType";
 import CursoCard from "../components/catalogo/cursoCard";
 import "../styles/home.css"
 
+
 const HomePage: React.FC = () => {
     const [cursos, setCursos] = useState<Curso[]>([]);
     const [loading, setLoading] = useState(true);

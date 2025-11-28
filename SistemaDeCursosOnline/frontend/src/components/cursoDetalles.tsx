@@ -6,7 +6,7 @@ import { AuthContext } from "../context/authContexto";
 type Props = {
   curso: {
     titulo: string;
-    docente: string | { _id: string; nombre: string }; // 👈 aceptar ambas formas
+    profesor: string | { _id: string; nombre: string }; // 👈 aceptar ambas formas
     descripcion: string;
     clases: Clase[];
   };
@@ -16,14 +16,14 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
   const auth = useContext(AuthContext);
   const usuario = auth?.user;
 
-  // Normalizar docente
-  const docenteNombre =
-    typeof curso.docente === "object" ? curso.docente.nombre : curso.docente;
-  const docenteId =
-    typeof curso.docente === "object" ? curso.docente._id : curso.docente;
+  // Normalizar profesor
+  const profesorNombre =
+    typeof curso.profesor === "object" ? curso.profesor.nombre : curso.profesor;
+  const profesorId =
+    typeof curso.profesor === "object" ? curso.profesor._id : curso.profesor;
 
   const puedeEditar =
-    usuario?.rol?.toUpperCase() === "PROFESOR" && usuario?._id === docenteId;
+    usuario?.rol?.toUpperCase() === "PROFESOR" && usuario?._id === profesorId;
 
   const esAdmin = usuario?.rol?.toUpperCase() === "ADMIN";
 
@@ -32,7 +32,7 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
       <header className="curso-header">
         <h1>{curso.titulo}</h1>
         <p>
-          <strong>Docente:</strong> {docenteNombre}
+          <strong>profesor:</strong> {profesorNombre}
         </p>
         <p>{curso.descripcion}</p>
       </header>

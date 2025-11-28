@@ -2,27 +2,24 @@ import { Curso } from "../types/cursoType";
 
 export const catalogoMock: Curso[] = [
   {
-    id: 1,
-    codigo:1,
+    _id: "1",
     titulo: "Introducción a React",
-    docente: "María López",
-    categoria: "Frontend",
+    profesor: "María López",
+    categorias: ["Frontend"],
     descripcion: "Aprendé los fundamentos de React y cómo crear componentes reutilizables.",
   },
   {
-    id: 2,
-    codigo:2,
+    _id: "2",
     titulo: "TypeScript avanzado",
-    docente: "Juan Pérez",
-    categoria: "Backend",
+    profesor: "Juan Pérez",
+    categorias: ["Backend"],
     descripcion: "Domina tipado avanzado, genéricos y buenas prácticas en proyectos grandes.",
   },
   {
-    id: 3,
-    codigo:3,
+    _id: "3",
     titulo: "Diseño UX/UI",
-    docente: "Ana Torres",
-    categoria: "Diseño",
+    profesor: "Ana Torres",
+    categorias: ["Diseño"],
     descripcion: "Explorá principios de usabilidad, wireframes y prototipado con Figma.",
   },
 ];

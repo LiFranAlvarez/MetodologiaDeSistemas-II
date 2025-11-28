@@ -12,12 +12,13 @@ const SUGERIDAS = ["programación","matemáticas","idiomas","diseño","backend",
 
 const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
   const [formData, setFormData] = useState<Curso>(
-    cursoInicial ?? {
+    cursoInicial ?? 
+    {
       _id:"",
       titulo:"",
       descripcion:"",        // ← este nombre si tu backend usa 'descripcion'
       profesor:"",
-      categorias:[],
+      categorias:[""],
       clases:[],
       materiales:[]
     }

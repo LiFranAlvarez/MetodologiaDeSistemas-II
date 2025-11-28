@@ -4,6 +4,7 @@ import { useBusqueda } from '../context/busquedaContexto';
 import { Curso } from '../types/cursoType';
 import CursoCard from '../components/catalogo/cursoCard';
 
+
 const CatalogoCursos = () => {
   const { filtro } = useBusqueda();
   const [todosLosCursos, setTodosLosCursos] = useState<Curso[]>([]);
@@ -41,8 +42,8 @@ const CatalogoCursos = () => {
         !texto ||
         curso.titulo.toLowerCase().includes(texto) ||
         curso.descripcion?.toLowerCase().includes(texto) ||
-        curso.categorias?.some(cat => cat.toLowerCase().includes(texto)) ||
-        (typeof curso.profesor === "object" && curso.profesor?.nombre?.toLowerCase().includes(texto));
+        Array.isArray(curso.categorias) && curso.categorias.some(cat => cat.toLowerCase().includes(texto)) ||
+        (typeof curso.docente === "object" && curso.docente?.nombre?.toLowerCase().includes(texto));
 
 
       const categoriaMatch =
@@ -51,8 +52,8 @@ const CatalogoCursos = () => {
 
       const docenteMatch =
       !filtro.docente ||
-      (typeof curso.profesor === "object" && curso.profesor?._id === filtro.docente) ||
-      (typeof curso.profesor === "string" && curso.profesor === filtro.docente);
+      (typeof curso.docente === "object" && curso.docente?._id === filtro.docente) ||
+      (typeof curso.docente === "string" && curso.docente === filtro.docente);
 
       return textoMatch && categoriaMatch && docenteMatch;
     });
@@ -67,7 +68,7 @@ const CatalogoCursos = () => {
       {resultados.length > 0 ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem' }}>
           {resultados.map((curso) => (
-            <CursoCard key={curso._id} curso={curso} />
+            <CursoCard key={curso.id} curso={curso} />
           ))}
         </div>
       ) : (
