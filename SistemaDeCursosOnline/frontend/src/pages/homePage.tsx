@@ -39,50 +39,100 @@ const HomePage: React.FC = () => {
 
     return (
         <main>
-            <div className="fondo">
-
-                <div className="hero-section"> {/* Usa clase CSS */}
-                    <h1>¡Impulsa tu carrera con nuestros cursos online!</h1>
-                    <p>Aprende de los mejores profesionales en tecnología y negocios.</p>
-                    
-                    
+        <div className="fondo">
+            {/* ======================================================= */}
+            {/* 1. SECCION PROMOCION */}
+            {/* ======================================================= */}
+            <div className="hero-section">
+                <h1>¡Impulsa tu carrera con nuestros cursos online!</h1>
+                <p>Aprende de los mejores profesionales en tecnología y negocios.</p>
+                
+                <div className="promocion-banner"> 
+                    <p>
+                        💥 **¡Últimos días!** 50% de descuento en tu primer curso con el código **MET-SIS-002**
+                    </p>
                 </div>
-                <section className="cursos-populares"> 
-                    <h2>Cursos populares</h2>
-
-                    {loading && <p>Cargando cursos...</p>}
-                    {error && <p style={{ color: "red" }}>{error}</p>}
-                    {!loading && !error && cursos.length === 0 && (
-                        <p>¡Ups! Parece que aún no hay cursos cargados. Vuelve pronto.</p>
-                    )}
-
-                    <div className="cursos-grid"> 
-                        {cursos.map((curso) => (
-                            <CursoCard key={curso._id} curso={curso} />
-                        ))}
-                    </div>
-
-                    <Link to="/cursos" className="boton-catalogo">
-                        Ver catálogo completo
-                    </Link>
-                </section>
-
-                <section>
-                    <h2>¿Por qué elegirnos?</h2>
-                    <ul>
-                        <li>📚 Cursos actualizados y prácticos</li>
-                        <li>👩‍🏫 Docentes verificados</li>
-                        <li>📈 Seguimiento de tu progreso</li>
-                        <li>🔒 Acceso seguro y flexible</li>
-                    </ul>
-                </section>
-
-                <div>
-                    <p>Preguntas frecuentes?</p>
-                </div>
-
+                
+                <Link to="/cursos" className="boton-cta-principal"> 
+                    ¡Empieza a aprender hoy! ➡️
+                </Link>
             </div>
-        </main>
+            
+            {/* ======================================================= */}
+            {/* 2. CURSOS POPULARES */}
+            {/* ======================================================= */}
+            <section className="cursos-populares">
+                <h2>Cursos populares</h2>
+
+                {loading && <p>Cargando cursos...</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {!loading && !error && cursos.length === 0 && (
+                    <p>¡Ups! Parece que aún no hay cursos cargados. Vuelve pronto.</p>
+                )}
+
+                <div className="cursos-grid">
+                    {cursos.map((curso) => (
+                        <CursoCard key={curso._id} curso={curso} />
+                    ))}
+                </div>
+
+                <Link to="/cursos" className="boton-catalogo">
+                    Ver catálogo completo
+                </Link>
+            </section>
+            
+            {/* ======================================================= */}
+            {/* 3. SECCION ESTUDIANTES */}
+            {/* ======================================================= */}
+            <section className="prueba-social">
+                <h2>Nuestros estudiantes nos avalan</h2>
+                <div className="metricas-clave">
+                    <div>
+                        <p className="numero">15.000+</p>
+                        <p>Estudiantes matriculados</p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ======================================================= */}
+            {/* 4. POR QUÉ ELEGIRNOS */}
+            {/* ======================================================= */}
+            <section className="ventajas">
+                <h2>¿Por qué elegirnos?</h2>
+                <ul>
+                    <li>📚 Cursos actualizados y prácticos</li>
+                    <li>👩‍🏫 Docentes verificados</li>
+                    <li>📈 Seguimiento de tu progreso</li>
+                    <li>🔒 Acceso seguro y flexible</li>
+                </ul>
+            </section>
+            
+            {/* ======================================================= */}
+            {/* 5. SECCION CORREO ELECTRONICO */}
+            {/* ======================================================= */}
+            <section className="newsletter-suscripcion">
+                <h2>¿Quieres unirte a la vanguardia?</h2>
+                <p>Suscríbete y recibe una **guía gratuita** y ofertas exclusivas.</p>
+                
+                <form className="formulario-suscripcion">
+                    <input type="email" placeholder="Tu correo electrónico" required />
+                    <button type="submit" className="boton-suscribir">
+                        ¡Suscribirme!
+                    </button>
+                </form>
+            </section>
+            
+            {/* ======================================================= */}
+            {/* 6. PREGUNTAS FRECUENTES */}
+            {/* ======================================================= */}
+            <section className="faq">
+                <h2>Preguntas Frecuentes</h2>
+                <p>Resuelve todas tus dudas sobre pagos, acceso y certificados.</p>
+                <Link to="/faq" className="boton-simple">Ver todas las preguntas</Link>
+            </section>
+
+        </div>
+    </main>
     );
 };
 
