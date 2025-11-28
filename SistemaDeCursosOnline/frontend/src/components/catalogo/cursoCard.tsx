@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Curso } from "../../types/cursoType";
 import "../../styles/cursoCards.css"
 
+
 const CursoCard = ({ curso }: { curso: Curso }) => (
   <div className='curso'>
     <h3>{curso.titulo}</h3>
