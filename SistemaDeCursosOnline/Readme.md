@@ -96,7 +96,7 @@ POST MAN
   "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.",
   "estado": "PENDIENTE",
   "profesor": {
-    "_id":"ID PROFESOR"
+    "$0id":"ID PROFESOR"
   },
   "clases": [
     {
