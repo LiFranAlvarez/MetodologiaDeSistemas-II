@@ -1,6 +1,7 @@
 import { Inscripcion } from "../types/inscripcionType";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+
 export const getCursosByUser = async (userId: string): Promise<Inscripcion[]> => {
   const res = await fetch(`${API_URL}/api/inscripcion/user/${userId}`, {
     headers: {
@@ -10,14 +11,33 @@ export const getCursosByUser = async (userId: string): Promise<Inscripcion[]> =>
   if (!res.ok) throw new Error("Error al obtener cursos del usuario");
   return res.json();
 };
-export const inscribirCurso = async (cursoId: string, userId: string) => {
-  const res = await fetch(`${API_URL}/api/inscripcion/:idCurso/:idUser`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ cursoId, userId })
-  });
-  if (!res.ok) throw new Error("Error al inscribirse al curso");
-  return res.json();
+export const inscribirCurso = async (cursoId: string, userId: string): Promise<void> => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+    
+    const res = await fetch(`${API_URL}/api/inscripcion/${cursoId}/${userId}`, { 
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        },
+    });
+
+    if (!res.ok) {
+        let errorMessage = "Error desconocido al procesar la inscripción.";
+        
+        try {
+            // Intenta leer el JSON del cuerpo de la respuesta
+            const errorData = await res.json(); 
+            // Usa el campo 'message' o 'error' que devuelve tu backend (HttpError)
+            errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch (error) {
+            console.log(error)
+            errorMessage = `El servidor devolvió un error ${res.status}.`;
+        }
+        
+        // 💡 Lanza el error con el mensaje descriptivo del servidor (ej. "Ya estás inscripto en este curso.")
+        throw new Error(errorMessage); 
+    }
 };
 
 // 📍 Abandonar curso

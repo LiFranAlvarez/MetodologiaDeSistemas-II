@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Curso } from "../types/cursoType"; 
 import { Clase } from "../types/claseType"; 
 import { Material } from "../types/materialType"; 
@@ -28,19 +29,44 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
     const esAlumno = usuario?.rol?.toUpperCase() === "ALUMNO";
   
   useEffect(() => { 
-    if (!usuario||!esAlumno) {
+    if (!usuario || !esAlumno) {
       return
-    }else (getCursosByUser(usuario._id!) as Promise<Inscripcion[]>)
-        .then(inscripciones => {
-          const inscripcionEncontrada = inscripciones.find(i => 
-            (i.curso as Curso)._id === curso._id
-          );
-          if (!inscripcionEncontrada) {
-            return setEstado("NO_INSCRIPTO");
+    } 
+    
+    (getCursosByUser(usuario._id!) as Promise<Inscripcion[]>)
+      .then(inscripciones => {
+        
+        const inscripcionEncontrada = inscripciones.find(i => {
+          
+          // 💡 1. Accedemos al campo 'cursoId' (que ahora es un objeto populado)
+          const cursoEnInscripcion = (i as any).cursoId; 
+          
+          let cursoInscritoId: string | undefined;
+
+          if (cursoEnInscripcion && typeof cursoEnInscripcion === 'object') {
+              // Extraemos el _id del objeto Curso populado
+              cursoInscritoId = cursoEnInscripcion._id; 
+          } else if (typeof cursoEnInscripcion === 'string') {
+              // Fallback (si por alguna razón no se populó)
+              cursoInscritoId = cursoEnInscripcion;
           }
 
-      setEstado(inscripcionEncontrada.estado); 
-    });
+          // 💡 2. Comparamos con el ID del curso actual
+          return cursoInscritoId === curso._id;
+        });
+
+        if (!inscripcionEncontrada) {
+          return setEstado("NO_INSCRIPTO");
+        }
+
+        // 💡 3. ESTABLECEMOS EL ESTADO CORRECTO: usamos 'estadoInscripcion'
+        setEstado((inscripcionEncontrada as any).estadoInscripcion); 
+      })
+      .catch(error => {
+          console.error("Error al cargar estado de inscripción:", error);
+          setEstado("NO_INSCRIPTO"); 
+      });
+      
   }, [usuario, curso._id, esAlumno]);
   const handleInscribirse = async () => { 
     console.log("Intentando inscribirse:", { 
@@ -50,12 +76,15 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
       alert("Necesitas iniciar sesión para inscribirte."); 
       return; 
     } try { 
-      await inscribirCurso(curso._id, usuario._id); 
-      setEstado("EN_PROCESO"); 
+        await inscribirCurso(curso._id, usuario._id); 
+        setEstado("EN_PROCESO"); 
+        alert("¡Inscripción exitosa!"); // Mensaje de éxito
     } catch (error) { 
-      console.error("Error al inscribirse:", error); 
-      alert("Hubo un error al procesar la inscripción."); 
-    } 
+        console.error("Error al inscribirse:", error); 
+        
+        // 💡 Muestra el mensaje de error específico (ej. "Ya estás inscripto...")
+        alert(`Error al inscribirse: ${(error as Error).message}`); 
+    }
   };
   const handleAbandonar = async () => { 
     if (!usuario || !curso._id) { 
