@@ -58,7 +58,7 @@ POST MAN
   "nombre": "PROFESOR 1 ",
   "email": "profesor1@hotmail.com",
   "password": "profesor" ,
-  "rol": "PROFESOR",
+  "rol": "PROFESOR"
 }
 
 2| cargar clases -> POST http://localhost:3000/api/clases
@@ -66,12 +66,12 @@ POST MAN
     {
     "titulo": "Introducción a Node.js",
     "estado": "DISPONIBLE",
-    "linkGrabacion": "https://youtu.be/nodejs-intro",
+    "linkGrabacion": "https://youtu.be/nodejs-intro"
     },
     {
     "titulo": "Express y Rutas Básicas",
     "estado": "PENDIENTE",
-    "linkGrabacion": "",
+    "linkGrabacion": ""
     }
 ]
 
@@ -80,12 +80,12 @@ POST MAN
 [{
   "titulo": "Guía de Wireframes",
   "tipo": "PDF",
-  "enlace": "https://uxdocs.com/wireframes-guide.pdf",
+  "enlace": "https://uxdocs.com/wireframes-guide.pdf"
 },
 {
   "titulo": "Prototipado con Figma",
   "tipo": "Video",
-  "enlace": "https://vimeo.com/figma-prototyping",
+  "enlace": "https://vimeo.com/figma-prototyping"
 }
 ]
 
@@ -96,22 +96,22 @@ POST MAN
   "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.",
   "estado": "PENDIENTE",
   "profesor": {
-    "ID PROFESOR"
+    "_id":"ID PROFESOR"
   },
   "clases": [
     {
-      "ID DE PRMER CLASE"
+      "_id":"ID DE PRMER CLASE"
     },
     {
-      "ID DE SEGUNDA CLASE"
+      "_id":"ID DE SEGUNDA CLASE"
     },
   ],
   "materiales": [
     {
-      ID DE UN MATERIAL
+      "_id":"ID DE UN MATERIAL"
     },
     {
-      ID DE OTRO MATERIAL
+      "_id":"ID DE OTRO MATERIAL"
     }
   ],
   "categorias": [
