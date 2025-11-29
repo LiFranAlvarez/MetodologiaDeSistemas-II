@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
                 
                 <div className="promocion-banner"> 
                     <p>
-                        💥 **¡Últimos días!** 50% de descuento en tu primer curso con el código **MET-SIS-002**
+                        💥 ¡Últimos días! 50% de descuento en tu primer curso con el código MET-SIS-002
                     </p>
                 </div>
                 
@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
             </section>
             <section className="newsletter-suscripcion">
                 <h2>¿Quieres unirte a la vanguardia?</h2>
-                <p>Suscríbete y recibe una **guía gratuita** y ofertas exclusivas.</p>
+                <p>Suscríbete y recibe una guía gratuita y ofertas exclusivas.</p>
                 
                 <form className="formulario-suscripcion">
                     <input type="email" placeholder="Tu correo electrónico" required />

@@ -4,6 +4,7 @@ import { Usuario } from "../types/usuarioType";
 import { getUsuarioById, updateUsuario } from "../services/usuarioServices";
 import { getCursosByUser } from "../services/inscripcionesServices";
 import { AuthContext } from "../context/authContexto";
+import CursoCard from "../components/catalogo/cursoCard";
 import "../styles/perfilUsuario.css";
 import "../styles/botonSimple.css"
 
@@ -149,8 +150,7 @@ const PerfilUsuario = () => {
           <div className="curso-curso-grid">
             {cursos.map(c => (
             <div className="curso-card" key={c._id}>
-              <h3>{c.titulo}</h3>
-              <p>{c.descripcion}</p>
+              <CursoCard key={c._id} curso={c} />
               <span className="estado">{c.estado}</span>
             </div>
             ))}
