@@ -1,113 +1,134 @@
 Grupo 4
 
-Integrantes: Lisando Alvarez, Angelina Rossi, Mateo Belatti, Ana Paula Schechtel
+Integrantes: Lisando Alvarez, Angelina Rossi, Mateo Belatti.
 
-Sistema de Cursos Online
-Se trata de una plataforma digital de cursos online que permite a los usuarios registrarse, acceder a contenidos educativos y gestionar sus avances. Está pensada para brindar una experiencia sencilla, accesible y organizada tanto para estudiantes como para administradores de cursos. 
+Documentación del Proyecto
 
-Los patrones que consideramos más apropiados para aplicar en nuestro proyecto son:
+Sistema de Gestión de Cursos Online
 
-Patrones Creacionales:
-FACTORY METHOD
-Porque permite crear distintos tipos de usuarios (administrador, profesor, alumno) sin que el código cliente se acople a clases concretas y facilita la extensión futura (ejemplo: agregar rol “tutor”).
+Descripción General
 
-SINGLETON
-Lo consideramos adecuado para la conexión a la base de datos, gestor de logs y configuración global del sistema, ademas que asegura que solo exista una instancia centralizada de estos recursos, asi se evita duplicación de conexiones.
+Este proyecto es un sistema completo para la gestión de cursos online compuesto por un backend en Node.js + TypeScript y un frontend en React + Vite. El objetivo principal del sistema es permitir la administración de cursos, usuarios y contenido educativo, brindando una experiencia fluida tanto para alumnos como para administradores.
 
+Funcionalidades principales
 
-Patrones Estructurales:
-FACADE
-Utilizaremos este patron ya que simplifica el acceso a subsistemas (por ej. gestión de usuarios, cursos, pagos, reportes).
+Frontend
 
+Interfaz moderna en React
+Gestión de usuarios
+Listado y visualización de cursos
+Autenticación
+Consumo de API REST
+Backend
 
-Patrones de Comportamiento:
-OBSERVER
-Permitiría notificar automáticamente a los estudiantes cuando un profesor sube nuevo material, o cuando hay un cambio en la fecha de entrega. Además favorece la suscripción/desuscripción dinámica.
+API REST con Express
+Rutas protegidas y sistema de autenticación
+Gestión de cursos, usuarios y sesiones
+Validación de datos
+Tecnologías utilizadas
 
-STRATEGY
-Resultaría útil para implementar diferentes métodos de evaluación (examen múltiple choice, ensayo, práctica).
+Backend
 
-Hay algunos otros patrones que, aunque no los vamos a utilizar, pero servirian para desarrollar el proyecto de una forma mas compleja en un posible futuro. Algunos ejemplos son el patron creacional ABSTRACT (para adaptar nuestras interfaces dependiendo los roles o plataformas),el patron estructural ADAPTER(para incluir pasarelas de pago o plataformas de video) y el patron de comportamiento COMMAND(para hacer posible el envio de tareas o la generacion de certificados).
+Node.js + Express
+TypeScript
+JWT para autenticación
+Dotenv para configuración
+Frontend
 
------------------------------DESARROLLO----------------------------
+React + Vite
+TypeScript
+React Router
+Fetch API para comunicación con backend
+Instalación
 
-MODELS
+Clonar el repositorio git clone https://github.com/LiFranAlvarez/MetodologiaDeSistemas-II.git
 
-usuario.ts
-Clase base que define los atributos y métodos comunes a todos los usuarios: id, nombre, apellido, email, password, rol, y conectado.
-Incluye el método login() y aplica el patrón Factory Method para crear distintos tipos de usuarios (Administrador, Docente y Estudiante) de manera desacoplada.
+Backend – Ejecución Instalar dependencias cd backend npm install
 
-estudiante.ts
-Subclase de Usuario.
-Posee el atributo adicional legajo y el método update() (implementado desde la interfaz update), que permite recibir notificaciones automáticas de los cursos.
-Representa el observador dentro del patrón Observer.
+Variables de entorno necesarias .env PORTEXPRESS=3000 MONGO_URL=mongodb://localhost:27017/CursosOnline SECRET='ESTE-ES-EL-SECRETO-DE-MI-API' VITE_API_URL=http://localhost:3000
 
-docente.ts
-Subclase de Usuario.
-Incluye atributos como especialidad y la capacidad de definir estrategias de evaluación.
-Implementa el patrón Strategy, permitiendo cambiar dinámicamente el método de evaluación de los estudiantes (por ejemplo, evaluación tipo ensayo o multiple choice).
+Ejecutar servidor en modo desarrollo npm run dev
 
-administrador.ts
-Subclase de Usuario.
-Su función principal es la gestión global del sistema: usuarios, cursos y permisos.
-Representa la capa de control administrativo.
+Frontend – Ejecución Instalar dependencias cd frontend npm install
 
-curso.ts
-Clase que representa los cursos del sistema, con atributos como id, codigo, titulo, descripcion, categoria, fechaCreacion y docente.
-Contiene una lista de estudiantes suscriptos (observadores) y los métodos agregarObservador(), notificarObservadores(), agregarLeccion() e inscribirEstudiante().
-Implementa el patrón Observer, actuando como el Sujeto (Subject) que notifica a los observadores (estudiantes) cuando se agregan nuevas lecciones o materiales.
+Variables de entorno .env VITE_API_URL=http://localhost:3000
 
-interfaces/
+Ejecutar entorno de desarrollo npm run dev
 
-update.ts: utilizada en el patrón Observer para definir el método update().
+Documentación de la API
 
-evaluacionStrategy.ts:
+La API sigue formato REST e incluye:
 
+Autenticación (login/register)
 
-MIDDLEWARES
+Gestión de cursos
 
-authMiddleware.ts
-Verifica si el usuario está autenticado antes de permitir el acceso a determinadas rutas.
-Controla la validez del token o la sesión activa.
+Gestión de usuarios
 
-apiKeyMiddleware.ts
-Requiere que cada solicitud incluya una clave de API válida, garantizando que solo los clientes autorizados accedan a la API.
+Envío y recepción de datos en JSON
 
-validateRole.ts
-Comprueba que el usuario tenga el rol adecuado (por ejemplo, solo un administrador puede eliminar usuarios o modificar configuraciones críticas).
+Documentación Técnica Interna
 
-loggerMiddleware.ts
-Registra todas las peticiones realizadas al servidor (método, ruta, fecha y hora), permitiendo auditoría y análisis posterior.
+Decisiones de arquitectura
 
-errorHandler.ts
-Middleware global que captura errores en el sistema y devuelve una respuesta estándar al cliente, mejorando la estabilidad y la gestión de excepciones.
+Se eligió Node.js + Express por su rapidez para prototipado de APIs REST.
+Se utiliza TypeScript para mejorar mantenibilidad y escalabilidad.
+React se eligió por su modularidad y facilidad para gestionar UI dinámicas.
+Vite se seleccionó por su velocidad de desarrollo comparado con Webpack.
+Convenciones de código
 
-ROUTES
+Estándares de estilo basados en Google Styleguide.
+Rutas separadas por módulo.
+Controllers → lógica de entrada/salida
+Services → lógica de negocio
+Models → acceso a datos
+Patrones de Diseño Aplicados en el Proyecto
 
-usuario.routes.ts: gestiona las operaciones CRUD sobre usuarios.
+=> Singleton
 
-estudiante.routes.ts: maneja las inscripciones, progreso y notificaciones de los estudiantes.
+Ubicación:
 
-docente.routes.ts: permite la creación de cursos, carga de materiales y calificación de estudiantes.
+-config/db.connect.ts -config/config.ts
 
-curso.routes.ts: administra los cursos disponibles, incluyendo creación, modificación y listado.
+Función
 
-admin.routes.ts: ofrece rutas exclusivas para la gestión del sistema (usuarios, reportes, estadísticas, etc.).
+Garantizar una única instancia de la conexión a la base de datos. Evitar múltiples conexiones y errores de rendimiento.
 
-Cada ruta utiliza los middlewares correspondientes para asegurar autenticación, autorización y registro de actividad.
+=> Facade
 
-SERVICES
+Ubicación:
 
-La carpeta services/ contiene la clase Elearning.ts, que implementa el patrón Facade.
-Este patrón simplifica la interacción entre los diferentes módulos del sistema (usuarios, cursos, docentes y estudiantes), proporcionando una interfaz única para las operaciones más comunes.
+-services/*.ts en el frontend
 
-Permite realizar tareas como:
+-services/*.ts en el backend
 
-Crear usuarios y cursos.
+Función
 
-Inscribir estudiantes.
+Los services simplifican el uso del backend o la lógica de negocio.
 
-Centralizar la lógica de interacción entre las distintas clases del sistema.
+El frontend oculta fetch, headers, tokens.
 
-Esto facilita la integración del sistema con posibles extensiones futuras, como servicios de pagos, notificaciones externas o reportes.
+El backend oculta validaciones, modelos, queries.
+
+=> Chain of Responsibility
+
+Ubicación:
+
+/src/middlewares/*
+
+Función
+
+Los middlewares se ejecutan en cadena Cada middleware decide si pasa la petición al siguiente.
+
+=> Strategy
+
+Ubicación:
+
+middlewares/validate.ts
+
+models/*.schema.ts
+
+Función
+
+Cada esquema de validación funciona como una “estrategia distinta”. El middleware ejecuta una validación u otra dependiendo del tipo de entidad.
 
