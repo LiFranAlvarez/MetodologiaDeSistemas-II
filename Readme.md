@@ -43,19 +43,34 @@ Instalación
 
 Clonar el repositorio git clone https://github.com/LiFranAlvarez/MetodologiaDeSistemas-II.git
 
-Backend – Ejecución Instalar dependencias cd backend npm install
+Backend
+cd backend
+# instalar dependencias si es la primera vez
+npm install
+# compilar y arrancar 
+npx tsc
+node dist/index.js
 
-Variables de entorno necesarias .env PORTEXPRESS=3000 MONGO_URL=mongodb://localhost:27017/CursosOnline SECRET='ESTE-ES-EL-SECRETO-DE-MI-API' VITE_API_URL=http://localhost:3000
+POST MAN
 
-Ejecutar servidor en modo desarrollo npm run dev
+1|cargar un profesor -> POST http://localhost:3000/api/usuario 
+{ "nombre": "PROFESOR 1 ", "email": "profesor1@hotmail.com", "password": "profesor" , "rol": "PROFESOR" }
 
-Frontend – Ejecución Instalar dependencias cd frontend npm install
+2| cargar clases -> POST http://localhost:3000/api/clases 
+[ { "titulo": "Introducción a Node.js", "estado": "DISPONIBLE", "linkGrabacion": "https://youtu.be/nodejs-intro" }, { "titulo": "Express y Rutas Básicas", "estado": "PENDIENTE", "linkGrabacion": "" } ]
 
-Variables de entorno .env VITE_API_URL=http://localhost:3000
+3| cargar material -> POST http://localhost:3000/api/materiales
 
-Ejecutar entorno de desarrollo npm run dev
+[{ "titulo": "Guía de Wireframes", "tipo": "PDF", "enlace": "https://uxdocs.com/wireframes-guide.pdf" }, { "titulo": "Prototipado con Figma", "tipo": "Video", "enlace": "https://vimeo.com/figma-prototyping" } ]
 
-Documentación de la API
+4| cargar cursos -> POST http://localhost:3000/api/cursos
+
+{ "titulo": "Programación Backend con Node.js", "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.", "estado": "PENDIENTE", "profesor": { "$0id":"ID PROFESOR" }, "clases": [ { "_id":"ID DE PRMER CLASE" }, { "_id":"ID DE SEGUNDA CLASE" }, ], "materiales": [ { "_id":"ID DE UN MATERIAL" }, { "_id":"ID DE OTRO MATERIAL" } ], "categorias": [ "Backend", "APIs", "JavaScript" ] }
+
+Frontend
+cd frontend
+npm install
+npm run dev
 
 La API sigue formato REST e incluye:
 
