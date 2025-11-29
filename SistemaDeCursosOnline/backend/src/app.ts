@@ -42,9 +42,6 @@ class Server {
         this.app.use('/api', cursoRouter);
         this.app.use('/api', inscripcionRouter);
         this.app.use('/api', authRouter);
-
-
-        // Central error handler (al final de todas las rutas)
         this.app.use(errorHandler);
 
     }

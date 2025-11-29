@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-// controllers/materialController.ts
 import * as materialService from "../services/material.service";
 
 export const getMateriales = async (req:Request, res:Response) => {

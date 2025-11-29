@@ -2,7 +2,6 @@ import {  useState, useEffect, ReactNode } from "react";
 import {  JwtPayload } from "../types/authContextoType";
 import { AuthContext } from "../context/authContexto";
 
-// pequeño decodificador JWT (no valida firma)
 const decodeJwt = (token: string): JwtPayload | null => {
   try {
     const payload = token.split('.')[1];

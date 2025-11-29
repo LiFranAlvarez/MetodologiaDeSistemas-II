@@ -44,7 +44,6 @@ class CursosService {
     async deleteOne( idCurso : string ){
         try {
             const deleted = await Curso.findByIdAndDelete(idCurso);
-            // CUANDO ESTE CORRIENDO VERIFICAR QUE TIPO ES DELETED
             return deleted;
         } catch (error) {
             throw new HttpError("No se pudo eliminar service.DeleteOne", 500);

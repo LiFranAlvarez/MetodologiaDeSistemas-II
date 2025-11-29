@@ -16,7 +16,7 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
     {
       _id:"",
       titulo:"",
-      descripcion:"",        // ← este nombre si tu backend usa 'descripcion'
+      descripcion:"",       
       profesor:"",
       categorias:[""],
       clases:[],
@@ -27,7 +27,6 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
   const [errors, setErrors] = useState<{ [key:string]:string }>({});
   const [nuevaCategoria, setNuevaCategoria] = useState("");
 
-  // Manejar categorías con autocompletado
   const handleAddCategoria = () => {
     if(nuevaCategoria.trim() && !formData.categorias?.includes(nuevaCategoria)){
       setFormData({...formData, categorias:[...(formData.categorias ?? []), nuevaCategoria]});
@@ -46,11 +45,11 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
       const raw = result.error.flatten().fieldErrors;
       setErrors({
         titulo: raw.titulo?.[0] ?? '',
-        descripcion: raw.descripcion?.[0] ?? '',  // 👁 coincide con formData
+        descripcion: raw.descripcion?.[0] ?? '', 
       });
       return;
     }
-    onSubmit(formData);   // ← esto envía correctamente todo
+    onSubmit(formData);   
   };
 
   return (
@@ -69,14 +68,12 @@ const CursoForm = ({ cursoInicial, onSubmit }: Props) => {
 
       <label>Categorías</label>
 
-      {/* Chips visuales */}
       <div className="chips">
         {formData.categorias?.map(cat=>(
           <span key={cat} className="chip">{cat} <b onClick={()=>handleDeleteCategoria(cat)}>×</b></span>
         ))}
       </div>
 
-      {/* Autocompletar */}
       <input list="cat-list" value={nuevaCategoria}
              placeholder="Agregar categoría..."
              onChange={(e)=>setNuevaCategoria(e.target.value)}/>

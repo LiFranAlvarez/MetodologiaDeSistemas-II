@@ -16,7 +16,7 @@ const CursoPage = () => {
 
         setLoading(true);
         getCursoById(idCurso)
-            .then(data => setCurso(data))
+            .then(data => setCurso(data as Curso))
             .catch(error => console.error("Error al cargar el curso:", error))
             .finally(() => setLoading(false));
     }, [idCurso]);
@@ -25,7 +25,6 @@ const CursoPage = () => {
         return <div>Cargando...</div>;
     }
     
-    // Si no se encontró el curso después de la carga
     if (!curso) {
         return <div>⚠️ Curso no encontrado.</div>;
     }

@@ -18,11 +18,10 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
   const navigate =useNavigate(); 
   const [isEditing, setIsEditing]=useState(false);
   const [estado, setEstado] = useState<EstadoInscripcion | "NO_INSCRIPTO">("NO_INSCRIPTO");
-  // Normalizar 
+ 
     const profesorObj = typeof curso.profesor === "object" ? curso.profesor : null;
     const profesorId = profesorObj ? profesorObj._id : curso.profesor;
     
-    // Roles y permisos
     const esProfesor = usuario?.rol?.toUpperCase() === "PROFESOR";
     const puedeEditar = esProfesor && usuario?._id === profesorId;
     const esAdmin = usuario?.rol?.toUpperCase() === "ADMIN";
@@ -38,20 +37,16 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
         
         const inscripcionEncontrada = inscripciones.find(i => {
           
-          // 💡 1. Accedemos al campo 'cursoId' (que ahora es un objeto populado)
           const cursoEnInscripcion = (i as any).cursoId; 
           
           let cursoInscritoId: string | undefined;
 
           if (cursoEnInscripcion && typeof cursoEnInscripcion === 'object') {
-              // Extraemos el _id del objeto Curso populado
               cursoInscritoId = cursoEnInscripcion._id; 
           } else if (typeof cursoEnInscripcion === 'string') {
-              // Fallback (si por alguna razón no se populó)
               cursoInscritoId = cursoEnInscripcion;
           }
 
-          // 💡 2. Comparamos con el ID del curso actual
           return cursoInscritoId === curso._id;
         });
 
@@ -59,7 +54,6 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
           return setEstado("NO_INSCRIPTO");
         }
 
-        // 💡 3. ESTABLECEMOS EL ESTADO CORRECTO: usamos 'estadoInscripcion'
         setEstado((inscripcionEncontrada as any).estadoInscripcion); 
       })
       .catch(error => {
@@ -78,11 +72,10 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
     } try { 
         await inscribirCurso(curso._id, usuario._id); 
         setEstado("EN_PROCESO"); 
-        alert("¡Inscripción exitosa!"); // Mensaje de éxito
+        alert("¡Inscripción exitosa!"); 
     } catch (error) { 
         console.error("Error al inscribirse:", error); 
         
-        // 💡 Muestra el mensaje de error específico (ej. "Ya estás inscripto...")
         alert(`Error al inscribirse: ${(error as Error).message}`); 
     }
   };
@@ -116,13 +109,11 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
 
   return (
     <div className="curso-detalle-container">
-      {/* ===================== HEADER ===================== */}
       <header className="curso-header-centered">
-        <h1 className="curso-titulo">{curso.titulo}</h1> {/* Título Centrado */}
-          <p className="curso-descripcion">{curso.descripcion || "Sin descripción disponible"}</p> {/* Descripción */}
+        <h1 className="curso-titulo">{curso.titulo}</h1> 
+          <p className="curso-descripcion">{curso.descripcion || "Sin descripción disponible"}</p> 
           <p className="curso-docente">Docente: <strong>{typeof curso.profesor === "string" ? curso.profesor : curso.profesor?.nombre || "Sin Asignar"}</strong></p>
                 
-          {/* 💡 Botones de Edición para Profesor/Admin */}
           {(puedeEditar || esAdmin) && (
             <div className="btn-group-profesor">
             <button 
@@ -133,7 +124,6 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
             </button>
             </div>
           )}
-            {/* 💡 Botones de Acción Global de Profesor (Aparecen al Editar) */}
           {isEditing && (
             <div className="btn-group-acciones">
               <button onClick={() => navigate(`/editar/curso/${curso._id}`)}>Editar Datos</button>
@@ -143,7 +133,6 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
             </div>
           )}
       </header>
-        {/* ===================== ALUMNO: BOTONES DE ACCIÓN ===================== */}
       {esAlumno && (
         <div className="alumno-acciones">
           {estado === "NO_INSCRIPTO" && (
@@ -171,7 +160,6 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
         </div>
       )}
             
-       {/* ===================== CONTENIDO DEL CURSO ===================== */}
         <div className="curso-contenido-wrapper">
           {contenidoVisible ? (
             <>
@@ -183,18 +171,15 @@ const CursoDetalle: React.FC<Props> = ({ curso }) => {
                         <small className="clase-fecha">
                           {clase.fecha ? new Date(clase.fecha).toLocaleDateString(): "Fecha sin asignar"}
                         </small>
-                    {/* 💡 INPUT DE LINK (SOLO EDICIÓN DEL PROFESOR) */}
                       <div className="clase-link">
                         <label>Link de Grabación</label>
                             <input 
                               type="text"
-                              // Asumimos que Clase tiene un campo 'linkGrabacion'
                               defaultValue={clase.linkGrabacion || ''}
                               placeholder="URL del video de la clase"
                               disabled={!puedeEditar || !isEditing}
                               className={isEditing ? 'input-editable' : 'input-readonly'}
                             />
-                            {/* Opcional: Botón de editar/eliminar clase aquí */}
                               {isEditing && (
                                 <button className="btn-eliminar-clase">🗑️</button>
                             )}

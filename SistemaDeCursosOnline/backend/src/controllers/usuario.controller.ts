@@ -10,7 +10,6 @@ class UserController{
     async createUser(req : Request, res: Response){
         try {
             const { nombre, email, password, rol } = req.body;
-            // asignar rol por defecto si no viene del frontend
             const finalRol = rol || 'ALUMNO';
             if (typeof nombre !== 'string' || typeof email !== 'string' || typeof password !== 'string') {
                 throw new Error("Los campos al crear un usuario deben ser string");
@@ -36,7 +35,6 @@ class UserController{
             if (!result || result.length === 0) {
                 return res.status(200).json({ message: 'No hay usuarios cargados' });
             }
-            // No enviar passwordHass al cliente
             const sanitized = result.map((u: any) => {
                 const obj = u.toObject ? u.toObject() : { ...u };
                 delete obj.passwordHass;

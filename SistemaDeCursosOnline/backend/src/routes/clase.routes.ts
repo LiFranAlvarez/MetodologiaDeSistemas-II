@@ -1,11 +1,5 @@
 import { Router } from "express";
-import {
-  getClases,
-  getClaseById,
-  createClase,
-  updateClase,
-  deleteClase,
-} from "../controllers/clase.controller";
+import {getClases,getClaseById,createClase,updateClase,deleteClase,} from "../controllers/clase.controller";
 
 const router = Router();
 

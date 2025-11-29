@@ -38,8 +38,8 @@ const PerfilUsuario = () => {
       });
       const inscripciones = await getCursosByUser(userId);
       const cursosUsuario = inscripciones.map((i: any) => ({
-        ...(typeof i.cursoId === "object" ? i.cursoId : {}),  // toma datos reales del curso
-        estado: i.estadoInscripcion,                          // nombre unificado
+        ...(typeof i.cursoId === "object" ? i.cursoId : {}),  
+        estado: i.estadoInscripcion,                          
         _idInscripcion: i._id,
       }));
 
@@ -73,7 +73,6 @@ const PerfilUsuario = () => {
       
       setUsuario(updated);
       
-      // Mantiene la sesión actualizada
       auth?.setUser(updated); 
 
       setEditando(false);
@@ -86,7 +85,6 @@ const PerfilUsuario = () => {
   return (
     <main className="perfil">
       <h1>Perfil de Usuario</h1>
-      {/* ===================== DATOS PERSONALES ===================== */}
       <div className="perfil-card">
         <h2>Informacion personal:</h2>
         <label>
@@ -124,7 +122,6 @@ const PerfilUsuario = () => {
 
         
       </div>
-      {/* ===================== ESTADÍSTICAS DE CURSOS ===================== */}
       <section className="perfil-estadisticas">
         <h2>Estadísticas</h2>
         <div className="stats-container">
@@ -143,7 +140,6 @@ const PerfilUsuario = () => {
         </div>
       </section>
 
-      {/* ===================== CURSOS DEL USUARIO ===================== */}
       <section className="perfil-cursos">
         <h2>Mis cursos</h2>
 

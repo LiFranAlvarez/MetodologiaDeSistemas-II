@@ -49,7 +49,6 @@ class UserService{
         try {
             const deleted = await Usuario.findByIdAndDelete(idUser);
             console.log('USUARIO ELIMINADO');
-            // CUANDO ESTE CORRIENDO VERIFICAR QUE TIPO ES DELETED
             return deleted;
         } catch (error) {
                 throw new HttpError("No se pudo eliminar service.DeleteOne", 500);

@@ -55,20 +55,16 @@ const RegisterForm: React.FC = () => {
       });
       const resp = response as { token?: string; message?: string };
       const token = resp.token;
-      // Si el backend retorna token, consideramos login automático
       if (typeof token === 'string' && token.length > 0) {
-        // actualizar contexto global (almacena en localStorage internamente)
         auth?.login(token);
         setSubmitted(true);
-        // mostrar mensaje y luego redirigir al perfil/login
         setTimeout(() => navigate('/perfil'), 1200);
         return;
       }
 
-      // Si no hay token pero hay mensaje (o cualquier respuesta válida), tratamos como registro exitoso
       if (resp.message || (resp && Object.keys(resp).length > 0)) {
         setSubmitted(true);
-        setTimeout(() => navigate('/auth/login'), 1200); // This line is no longer needed
+        setTimeout(() => navigate('/auth/login'), 1200); 
       } else {
         setServerError('Respuesta inválida del servidor');
       }

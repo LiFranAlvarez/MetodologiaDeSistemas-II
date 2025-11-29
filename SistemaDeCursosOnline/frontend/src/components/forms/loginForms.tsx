@@ -50,23 +50,19 @@ const LoginForm = () => {
     try {
       setIsLoading(true);
 
-      // Llamada al backend
       const response = await login(formData);
       const resp = response as { token?: string; message?: string };
       const token = resp.token;
       if (!token) throw new Error("Token no recibido");
 
-      // Decodificar token localmente para obtener rol e id
       const decoded = decodeJwt(token);
       const role = decoded?.rol;
       const userId = decoded?._id;
 
-      // actualizar contexto global (almacena token en localStorage)
       auth?.login(token);
       if (userId) localStorage.setItem('userId', String(userId));
       setLoginSuccess(true);
 
-      // Pequeña demora para mostrar mensaje de éxito
       setTimeout(() => {
         if (role && (role.includes("alum") || role === "alumno")) {
           navigate("/dashboard/alumno");

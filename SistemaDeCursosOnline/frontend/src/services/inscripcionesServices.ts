@@ -26,21 +26,18 @@ export const inscribirCurso = async (cursoId: string, userId: string): Promise<v
         let errorMessage = "Error desconocido al procesar la inscripción.";
         
         try {
-            // Intenta leer el JSON del cuerpo de la respuesta
+            
             const errorData = await res.json(); 
-            // Usa el campo 'message' o 'error' que devuelve tu backend (HttpError)
             errorMessage = errorData.message || errorData.error || errorMessage;
         } catch (error) {
             console.log(error)
             errorMessage = `El servidor devolvió un error ${res.status}.`;
         }
         
-        // 💡 Lanza el error con el mensaje descriptivo del servidor (ej. "Ya estás inscripto en este curso.")
         throw new Error(errorMessage); 
     }
 };
 
-// 📍 Abandonar curso
 export const abandonarCurso = async (cursoId: string, userId: string) => {
   const res = await fetch(`${API_URL}/api/inscripcion/cancel/:idInsc`, {
     method: "PUT",
@@ -51,7 +48,6 @@ export const abandonarCurso = async (cursoId: string, userId: string) => {
   return res.json();
 };
 
-// 📍 Completar curso
 export const completarCurso = async (cursoId: string, userId: string) => {
   const res = await fetch(`${API_URL}/api/inscripcion/completar`, {
     method: "PUT",

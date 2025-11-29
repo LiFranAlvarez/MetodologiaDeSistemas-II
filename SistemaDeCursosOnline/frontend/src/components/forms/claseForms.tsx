@@ -3,7 +3,6 @@ import { Clase } from "../../types/claseType";
 import { claseSchema, } from '../../utils/validaciones/validacionesClases'; 
 import "../../styles/forms.css";
 
-// Definimos el tipo de datos que maneja el formulario, basándonos en Clase
 type ClaseFormData = Omit<Clase, "fecha">; 
 
 type Props = {
@@ -13,7 +12,6 @@ type Props = {
 
 const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
   
-  // Inicializamos el estado. La FECHA SE OMITE deliberadamente.
   const [formData, setFormData] = useState<ClaseFormData>(
     claseInicial ?? {
       _id:"",
@@ -36,7 +34,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validar solo los campos presentes en formData (titulo, estado, linkGrabacion)
     const result = claseSchema.safeParse(formData);
     
     if (!result.success) {
@@ -48,8 +45,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
       return;
     }
     
-    // Limpiar errores y enviar el objeto. 
-    // Como 'fecha' no está en el objeto, el backend usará Date.now().
     setErrors({});
     onSubmit(result.data as ClaseFormData); 
   };
@@ -58,7 +53,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
     <form onSubmit={handleSubmit} className="forms">
       <h2>{claseInicial ? "Editar Clase" : "Agregar Nueva Clase"}</h2>
 
-      {/* Título (Requerido) */}
       <label htmlFor="titulo"> Título de la Clase </label>
       <input 
         id="titulo"
@@ -68,7 +62,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
       />
       {errors.titulo && <p className="error">{errors.titulo}</p>}
 
-      {/* INFORMACIÓN AL USUARIO SOBRE LA FECHA */}
       <p style={{
         marginTop:'5px', 
         marginBottom:'20px', 
@@ -79,7 +72,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
         * La fecha y hora de la clase se registrarán automáticamente al momento de la creación.
       </p>
       
-      {/* Estado (Usará 'PENDIENTE' por defecto en Mongoose, pero es bueno mostrarlo) */}
       <label htmlFor="estado"> Estado </label>
       <select
         id="estado"
@@ -91,7 +83,6 @@ const ClaseForm = ({ claseInicial, onSubmit }: Props) => {
         <option value="DISPONIBLE">DISPONIBLE</option>
       </select>
 
-      {/* Link de Grabación (Opcional) */}
       <label htmlFor="linkGrabacion"> Link de Grabación (Opcional) </label>
       <input 
         id="linkGrabacion"

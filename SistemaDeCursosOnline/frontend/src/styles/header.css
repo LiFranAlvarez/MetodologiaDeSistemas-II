@@ -1,12 +1,12 @@
-/* --- Variables para consistencia --- */
+
 :root {
-    --header-bg: #c1d5ef; /* Azul claro del fondo del header */
+    --header-bg: #c1d5ef;
     --primary-color: #1d4ed8; 
     --text-color: #333;
     --white-color: #ffffff;
     --radius-standard: 6px;
     --radius-pill: 999px;
-    --max-content-width: 1200px; /* Definir el ancho máximo para consistencia */
+    --max-content-width: 1200px;
 }
 
 .header {
@@ -27,7 +27,6 @@
     padding: 1rem 2rem;
 }
 
-/* --- SECCIÓN DE BÚSQUEDA Y CATÁLOGO --- */
 
 .busqueda-con-catalogo {
     display: flex;
@@ -71,7 +70,6 @@
     text-decoration: none;
 }
 
-/* --- ENLACES --- */
 
 .header-links {
     display: flex;
@@ -117,11 +115,8 @@
     border-color: #2563eb;
 }
 
-/* --- RESPONSIVE / MEDIA QUERIES --- */
-
-/* Pantallas Medianas (por ejemplo, tabletas) */
 @media (max-width: 900px) {
-    .header-content { /* Aplicamos los cambios al contenedor interno */
+    .header-content { 
         padding: 1rem 1.5rem;
         gap: 1rem;
     }
@@ -137,7 +132,6 @@
     }
 }
 
-/* Pantallas Pequeñas (por ejemplo, móviles) */
 @media (max-width: 600px) {
     .header-content {
         padding: 0.8rem 1rem;

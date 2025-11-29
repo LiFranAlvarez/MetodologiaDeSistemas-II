@@ -12,7 +12,7 @@ export const getCursoById = async (idCurso: string | number): Promise<Partial<Cu
   
   const res = await fetch(`${API_URL}/api/cursos/${idCurso}`,{
     method: "GET",
-    cache: "no-store", //  evita que devuelva 304
+    cache: "no-store", 
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },

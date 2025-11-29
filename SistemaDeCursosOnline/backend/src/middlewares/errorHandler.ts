@@ -8,12 +8,10 @@ function errorHandler(err: any, _req: Request, res: Response, _next: NextFunctio
     return res.status(err.status || 500).json({ success: false, error: err.message });
   }
 
-  // Mongoose validation errors
   if (err && err.name === 'ValidationError') {
     return res.status(400).json({ success: false, error: err.message });
   }
 
-  // Default
   return res.status(500).json({ success: false, error: 'Internal Server Error' });
 }
 

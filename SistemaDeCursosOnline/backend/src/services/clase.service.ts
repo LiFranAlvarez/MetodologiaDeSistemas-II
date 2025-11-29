@@ -10,10 +10,8 @@ export const getClaseById = async (id: string) => {
 
 export const createClase = async (data: any | any[]) => {
     if (Array.isArray(data)) {
-        // Si recibimos un array, usamos insertMany para crear varios documentos a la vez.
         return await Clase.insertMany(data);
     }
-    // Si no es un array, se comporta como antes (para una sola clase)
     const clase = new Clase(data);
     return await clase.save();
 };

@@ -9,7 +9,6 @@ interface JwtPayload {
     rol : string;
 }
 
-// attach user info to req.user
 export const verifyToken = async ( req : Request, res: Response, next: NextFunction ) => {
     try {
         const authHeader = (req.header('authorization') || req.header('Authorization') || req.header('token')) as string | undefined;
@@ -23,7 +22,6 @@ export const verifyToken = async ( req : Request, res: Response, next: NextFunct
         if (!user) {
             return res.status(404).json({message : 'User not found'})
         }
-        // attach to request
         (req as any).user = { id: idUser, rol: decoded.rol };
         console.log('Token verificado');
         next();
@@ -65,7 +63,6 @@ export const isProfesor = async ( req : Request, res: Response, next: NextFuncti
     }
 }
 
-// allow ADMIN or PROFESOR
 export const isAdminOrProfesor = ( req: Request, res: Response, next: NextFunction ) => {
     try {
         const user = (req as any).user;
@@ -78,13 +75,11 @@ export const isAdminOrProfesor = ( req: Request, res: Response, next: NextFuncti
     }
 }
 
-// allow editing/deleting a course: ADMIN can, PROFESOR only if assigned to course
 export const canEditCurso = async ( req: Request, res: Response, next: NextFunction ) => {
     try {
         const user = (req as any).user;
         if (!user) return res.status(401).json({ msg: 'No autenticado' });
         if (user.rol === 'ADMIN') return next();
-        // get course id from params
         const idCurso = req.params.idCurso || req.params.id;
         if (!idCurso) return res.status(400).json({ message: 'ID de curso requerido' });
         const curso = await CursosService.getById(idCurso);

@@ -9,12 +9,10 @@ export const getMaterialById = async (id: string) => {
 };
 
 export const createMaterial = async (data: any | any[]) => {
-    // 💡 VERIFICACIÓN CLAVE: Si recibimos un array, usamos insertMany
     if (Array.isArray(data)) {
         return await Material.insertMany(data);
     }
     
-    // Si no es un array, se comporta como antes (para un solo material)
     const material = new Material(data);
     return await material.save();
 };

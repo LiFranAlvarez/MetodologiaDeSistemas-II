@@ -1,5 +1,4 @@
 
-/* 1. Encabezado */
 .curso-header-centered {
     text-align: center;
     padding: 20px;
@@ -18,7 +17,6 @@
     margin-top: 10px;
 }
 
-/* 2. Botones de acción (Alumno y Profesor) */
 .alumno-acciones, .btn-group-profesor, .btn-group-acciones {
     display: flex;
     justify-content: center;
@@ -29,7 +27,7 @@
 
 .btn-inscripcion, .btn-editar-curso, .btn-reinscribir {
     padding: 10px 20px;
-    background-color: #4c51bf; /* Azul */
+    background-color: #4c51bf; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -38,10 +36,9 @@
 }
 
 .btn-cancelar-edicion {
-    background-color: #e53e3e; /* Rojo */
+    background-color: #e53e3e; 
 }
 
-/* 3. Listado de Clases */
 .clases-list {
     list-style: none;
     padding: 0;
@@ -81,7 +78,6 @@
     width: 250px;
 }
 
-/* 4. Listado de Materiales */
 .materiales-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -102,7 +98,7 @@
 .material-item-row a {
     text-decoration: none;
     color: #2b6cb0;
-    flex-grow: 1; /* Permite que el link ocupe espacio */
+    flex-grow: 1; 
 }
 
 .material-titulo {

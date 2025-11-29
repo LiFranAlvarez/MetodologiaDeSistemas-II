@@ -40,9 +40,6 @@ const HomePage: React.FC = () => {
     return (
         <main>
         <div className="fondo">
-            {/* ======================================================= */}
-            {/* 1. SECCION PROMOCION */}
-            {/* ======================================================= */}
             <div className="hero-section">
                 <h1>¡Impulsa tu carrera con nuestros cursos online!</h1>
                 <p>Aprende de los mejores profesionales en tecnología y negocios.</p>
@@ -58,9 +55,6 @@ const HomePage: React.FC = () => {
                 </Link>
             </div>
             
-            {/* ======================================================= */}
-            {/* 2. CURSOS POPULARES */}
-            {/* ======================================================= */}
             <section className="cursos-populares">
                 <h2>Cursos populares</h2>
 
@@ -80,10 +74,6 @@ const HomePage: React.FC = () => {
                     Ver catálogo completo
                 </Link>
             </section>
-            
-            {/* ======================================================= */}
-            {/* 3. SECCION ESTUDIANTES */}
-            {/* ======================================================= */}
             <section className="prueba-social">
                 <h2>Nuestros estudiantes nos avalan</h2>
                 <div className="metricas-clave">
@@ -93,10 +83,6 @@ const HomePage: React.FC = () => {
                     </div>
                 </div>
             </section>
-
-            {/* ======================================================= */}
-            {/* 4. POR QUÉ ELEGIRNOS */}
-            {/* ======================================================= */}
             <section className="ventajas">
                 <h2>¿Por qué elegirnos?</h2>
                 <ul>
@@ -106,10 +92,6 @@ const HomePage: React.FC = () => {
                     <li>🔒 Acceso seguro y flexible</li>
                 </ul>
             </section>
-            
-            {/* ======================================================= */}
-            {/* 5. SECCION CORREO ELECTRONICO */}
-            {/* ======================================================= */}
             <section className="newsletter-suscripcion">
                 <h2>¿Quieres unirte a la vanguardia?</h2>
                 <p>Suscríbete y recibe una **guía gratuita** y ofertas exclusivas.</p>
@@ -122,9 +104,6 @@ const HomePage: React.FC = () => {
                 </form>
             </section>
             
-            {/* ======================================================= */}
-            {/* 6. PREGUNTAS FRECUENTES */}
-            {/* ======================================================= */}
             <section className="faq">
                 <h2>Preguntas Frecuentes</h2>
                 <p>Resuelve todas tus dudas sobre pagos, acceso y certificados.</p>

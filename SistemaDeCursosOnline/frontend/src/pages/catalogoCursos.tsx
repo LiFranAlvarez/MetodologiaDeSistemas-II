@@ -43,7 +43,7 @@ const CatalogoCursos = () => {
         curso.titulo.toLowerCase().includes(texto) ||
         curso.descripcion?.toLowerCase().includes(texto) ||
         Array.isArray(curso.categorias) && curso.categorias.some(cat => cat.toLowerCase().includes(texto)) ||
-        (typeof curso.docente === "object" && curso.docente?.nombre?.toLowerCase().includes(texto));
+        (typeof curso.profesor === "object" && curso.profesor?.nombre?.toLowerCase().includes(texto));
 
 
       const categoriaMatch =
@@ -51,9 +51,9 @@ const CatalogoCursos = () => {
         curso.categorias?.includes(filtro.categoria);
 
       const docenteMatch =
-      !filtro.docente ||
-      (typeof curso.docente === "object" && curso.docente?._id === filtro.docente) ||
-      (typeof curso.docente === "string" && curso.docente === filtro.docente);
+      !filtro.profesor ||
+      (typeof curso.profesor === "object" && curso.profesor?._id === filtro.profesor) ||
+      (typeof curso.profesor === "string" && curso.profesor === filtro.profesor);
 
       return textoMatch && categoriaMatch && docenteMatch;
     });
@@ -68,7 +68,7 @@ const CatalogoCursos = () => {
       {resultados.length > 0 ? (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '1rem' }}>
           {resultados.map((curso) => (
-            <CursoCard key={curso.id} curso={curso} />
+            <CursoCard key={curso._id} curso={curso} />
           ))}
         </div>
       ) : (

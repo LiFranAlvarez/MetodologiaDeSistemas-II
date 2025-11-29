@@ -1,13 +1,12 @@
-/* Variables CSS (Opcional, pero recomendado para consistencia) */
+
 :root {
-    --color-principal: #007bff; /* Azul vibrante para CTA y links */
-    --color-secundario: #f8f9fa; /* Gris claro para fondos */
+    --color-principal: #007bff; 
+    --color-secundario: #f8f9fa; 
     --color-texto-oscuro: #333;
-    --color-fondo-claro: #c1d5ef; /* El color de fondo del div.fondo */
+    --color-fondo-claro: #c1d5ef; 
     --color-amarillo-cta: #ffc107;
 }
 
-/* Estilos Globales y Base */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -29,7 +28,6 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-/* ----- SECCION PROMOCION -----*/
 
 .hero-section {
     background-color: white;
@@ -80,7 +78,7 @@ h1, h2 {
     transform: translateY(-2px);
 }
 
-/* ----- CURSOS POPULARES ----- */
+
 
 .cursos-populares {
     padding: 40px 0;
@@ -126,10 +124,9 @@ h1, h2 {
     background-color: #0056b3;
 }
 
-/* ----- SECCION ESTUDIANTES ----- */
+
 
 .prueba-social {
-    /* Definición del Fondo */
     background-image: 
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
         url('../assets/images/elegirnosjpg.jpg'); 
@@ -180,9 +177,7 @@ h1, h2 {
     margin: 0;
 }
 
-/* ======================================================= */
-/* ----- POR QUE ELEGIRNOS  ----- */
-/* ======================================================= */
+
 
 .ventajas {
     background-color: white;
@@ -234,9 +229,7 @@ h1, h2 {
     border-color: var(--color-principal);
 }
 
-/* ======================================================= */
-/* ----- SECCION CORREO ELECTRONICO ----- */
-/* ======================================================= */
+
 
 .newsletter-suscripcion {
     background-color: var(--color-principal);
@@ -289,9 +282,7 @@ h1, h2 {
     transform: translateY(-1px);
 }
 
-/* ======================================================= */
-/* ----- PREGUNTAS FRECUENTES  ----- */
-/* ======================================================= */
+
 
 .faq {
     padding: 50px 0 30px;

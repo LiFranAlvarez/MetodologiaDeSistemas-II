@@ -14,12 +14,10 @@ class InscripcionesController{
             res.status(201).json(result);
         } catch (error) {
             if (error instanceof HttpError) {
-                // Devuelve 409 o 400/500 según lo que lance el service
                 return res.status(error.status).json({message : error.message})
             }
             
             console.error("Error no clasificado en Controller:", error);
-            // Si no es un HttpError, es un fallo del controlador/Express
             res.status(500).json({ error: "Error interno del servidor." }); 
         }
     };

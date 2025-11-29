@@ -6,10 +6,8 @@ import HttpError from '../utils/httpError';
 
 class InscripcionService{
     async createOne( idCurso: string, idUser: string ){
-        // 💡 1. Prevenir inscripción duplicada (evitar E11000)
         const existing = await Inscripciones.findOne({ cursoId: idCurso, usuarioId: idUser });
         if (existing) {
-            // Si ya existe, lanzamos un error 409 Conflict
             throw new HttpError("Ya estás inscripto en este curso.", 409); 
         }
 
@@ -18,17 +16,14 @@ class InscripcionService{
                 cursoId: idCurso,
                 usuarioId: idUser
             });;
-        } catch (error: any) { // Usamos :any para acceder a propiedades de error de Mongoose
+        } catch (error: any) {
             
-            // 💡 2. Diagnóstico: Loguear el error exacto de Mongoose
             console.error("Error detallado de Mongoose en createOne:", error); 
             
-            // 💡 3. Manejar CastError (IDs inválidos)
             if (error.name === 'CastError') {
                 throw new HttpError("IDs de Curso o Usuario inválidos. Verifique el formato.", 400); 
             }
             
-            // Si el error no es el 409 (duplicado) que ya cubrimos, lanzamos el 500 genérico.
             throw new HttpError("Fallo desconocido al crear la inscripción", 500);
         }
     };
