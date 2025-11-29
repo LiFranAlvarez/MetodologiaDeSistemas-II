@@ -6,6 +6,7 @@ import { getCursosByUser } from "../services/inscripcionesServices";
 import { AuthContext } from "../context/authContexto";
 import "../styles/perfilUsuario.css";
 import "../styles/botonSimple.css"
+import CursoCard from "../components/catalogo/cursoCard";
 
 const PerfilUsuario = () => {
   const [usuario, setUsuario] = useState<Usuario>({
@@ -148,11 +149,7 @@ const PerfilUsuario = () => {
         ) : (
           <div className="curso-curso-grid">
             {cursos.map(c => (
-            <div className="curso-card" key={c._id}>
-              <h3>{c.titulo}</h3>
-              <p>{c.descripcion}</p>
-              <span className="estado">{c.estado}</span>
-            </div>
+              <CursoCard key={c._id} curso={c} />
             ))}
           </div>
         )}
