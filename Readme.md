@@ -45,9 +45,7 @@ Clonar el repositorio git clone https://github.com/LiFranAlvarez/MetodologiaDeSi
 
 Backend
 cd backend
-# instalar dependencias si es la primera vez
 npm install
-# compilar y arrancar 
 npx tsc
 node dist/index.js
 
