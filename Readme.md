@@ -46,8 +46,13 @@ Clonar el repositorio git clone https://github.com/LiFranAlvarez/MetodologiaDeSi
 Backend
 cd backend
 npm install
-npx tsc
-node dist/index.js
+npm run build
+npm run dev
+
+Frontend
+cd frontend
+npm install
+npm run dev
 
 POST MAN
 
@@ -64,11 +69,6 @@ POST MAN
 4| cargar cursos -> POST http://localhost:3000/api/cursos
 
 { "titulo": "Programación Backend con Node.js", "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.", "estado": "PENDIENTE", "profesor": { "$0id":"ID PROFESOR" }, "clases": [ { "_id":"ID DE PRMER CLASE" }, { "_id":"ID DE SEGUNDA CLASE" }, ], "materiales": [ { "_id":"ID DE UN MATERIAL" }, { "_id":"ID DE OTRO MATERIAL" } ], "categorias": [ "Backend", "APIs", "JavaScript" ] }
-
-Frontend
-cd frontend
-npm install
-npm run dev
 
 La API sigue formato REST e incluye:
 
