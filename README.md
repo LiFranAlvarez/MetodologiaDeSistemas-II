@@ -1,3 +1,7 @@
+Grupo 4
+
+Integrantes: Lisando Alvarez, Angelina Rossi, Mateo Belatti.
+
 Documentación del Proyecto
 
 Sistema de Gestión de Cursos Online
@@ -39,19 +43,32 @@ Instalación
 
 Clonar el repositorio git clone https://github.com/LiFranAlvarez/MetodologiaDeSistemas-II.git
 
-Backend – Ejecución Instalar dependencias cd backend npm install
+Backend
+cd backend
+npm install
+npm run build
+npm run dev
 
-Variables de entorno necesarias .env PORTEXPRESS=3000 MONGO_URL=mongodb://localhost:27017/CursosOnline SECRET='ESTE-ES-EL-SECRETO-DE-MI-API' VITE_API_URL=http://localhost:3000
+Frontend
+cd frontend
+npm install
+npm run dev
 
-Ejecutar servidor en modo desarrollo npm run dev
+POST MAN
 
-Frontend – Ejecución Instalar dependencias cd frontend npm install
+1|cargar un profesor -> POST http://localhost:3000/api/usuario 
+{ "nombre": "PROFESOR 1 ", "email": "profesor1@hotmail.com", "password": "profesor" , "rol": "PROFESOR" }
 
-Variables de entorno .env VITE_API_URL=http://localhost:3000
+2| cargar clases -> POST http://localhost:3000/api/clases 
+[ { "titulo": "Introducción a Node.js", "estado": "DISPONIBLE", "linkGrabacion": "https://youtu.be/nodejs-intro" }, { "titulo": "Express y Rutas Básicas", "estado": "PENDIENTE", "linkGrabacion": "" } ]
 
-Ejecutar entorno de desarrollo npm run dev
+3| cargar material -> POST http://localhost:3000/api/materiales
 
-Documentación de la API
+[{ "titulo": "Guía de Wireframes", "tipo": "PDF", "enlace": "https://uxdocs.com/wireframes-guide.pdf" }, { "titulo": "Prototipado con Figma", "tipo": "Video", "enlace": "https://vimeo.com/figma-prototyping" } ]
+
+4| cargar cursos -> POST http://localhost:3000/api/cursos
+
+{ "titulo": "Programación Backend con Node.js", "descripcion": "Curso práctico sobre Node.js, Express, arquitectura de APIs y conexión con bases de datos.", "estado": "PENDIENTE", "profesor": { "ID PROFESOR" }, "clases": [ { "_id":"ID DE PRMER CLASE" }, { "_id":"ID DE SEGUNDA CLASE" } ], "materiales": [ { "_id":"ID DE UN MATERIAL" }, { "_id":"ID DE OTRO MATERIAL" } ], "categorias": [ "Backend", "APIs", "JavaScript" ] }
 
 La API sigue formato REST e incluye:
 
