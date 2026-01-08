@@ -7,7 +7,7 @@ export interface CursoDTO {
 }
 
 export class CursoFactory {
-  static fromRequest(body: any, _userId: string): CursoDTO {
+  static fromRequest(body: any): CursoDTO {
     return {
       titulo: body.titulo,
       descripcion: body.descripcion,
