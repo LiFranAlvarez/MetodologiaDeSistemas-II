@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+
 import { Rol } from '../models/interfaces/types';
 export interface IUserResponse {
   _id: string | Types.ObjectId;

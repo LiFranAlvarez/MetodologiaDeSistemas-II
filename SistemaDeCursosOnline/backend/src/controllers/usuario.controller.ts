@@ -1,8 +1,9 @@
-import UserService from '../services/user.service';
-import { Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
-import HttpError from '../utils/httpError';
+import { Request, Response } from 'express';
+
 import { CreateUserDTO, IUserResponse } from '../dtos/userDTO';
+import UserService from '../services/user.service';
+import HttpError from '../utils/httpError';
 
 class UserController {
   async createUser(req: Request, res: Response) {

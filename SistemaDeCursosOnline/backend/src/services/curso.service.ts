@@ -1,7 +1,8 @@
 import { Types } from 'mongoose';
+
+import { EstadoCurso } from '../models/interfaces/types';
 import { ICursoRepository } from '../repositories/ICursoRepository';
 import HttpError from '../utils/httpError';
-import { EstadoCurso } from '../models/interfaces/types';
 
 export interface ICurso {
   _id?: Types.ObjectId;

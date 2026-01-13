@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { cursosService } from '../services';
-import { CursoFactory } from '../factories/cursoFactory';
 import { Types } from 'mongoose';
+
+import { CursoFactory } from '../factories/cursoFactory';
+import { cursosService } from '../services';
 
 export const crearCurso = async (req: Request, res: Response) => {
   const dto = CursoFactory.fromRequest(req.body);

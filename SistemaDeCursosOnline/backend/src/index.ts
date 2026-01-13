@@ -1,5 +1,6 @@
-import Server from './app.js';
 import dotenv from 'dotenv';
+
+import Server from './app.js';
 
 dotenv.config();
 const port: number = Number(process.env.PORTEXPRESS) || 3000;

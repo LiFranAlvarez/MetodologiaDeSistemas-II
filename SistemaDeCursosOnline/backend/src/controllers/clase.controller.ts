@@ -1,5 +1,6 @@
-import * as claseService from '../services/clase.service';
 import { Request, Response } from 'express';
+
+import * as claseService from '../services/clase.service';
 export const getClases = async (req: Request, res: Response) => {
   try {
     const clases = await claseService.getClases();

@@ -1,5 +1,5 @@
-import Material from '../models/material.schema';
 import { UpdateMaterialDTO, CreateMaterialDTO } from '../dtos/materialDTO';
+import Material from '../models/material.schema';
 
 export const getMateriales = async () => {
   return await Material.find();

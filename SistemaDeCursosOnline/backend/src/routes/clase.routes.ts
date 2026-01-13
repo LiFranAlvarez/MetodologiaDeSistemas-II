@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import {
   getClases,
   getClaseById,
@@ -7,8 +8,8 @@ import {
   deleteClase,
 } from '../controllers/clase.controller';
 import { authenticate } from '../middlewares/authenticate';
-import { authorizeRole } from '../middlewares/authorizeRole';
 import { authorizeCursoEdit } from '../middlewares/authorizeCurso';
+import { authorizeRole } from '../middlewares/authorizeRole';
 
 const router = Router();
 

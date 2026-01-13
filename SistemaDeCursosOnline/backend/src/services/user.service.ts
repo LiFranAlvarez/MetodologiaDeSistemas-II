@@ -1,7 +1,8 @@
+import { Types } from 'mongoose';
+
+import { Rol } from '../models/interfaces/types';
 import Usuario from '../models/usuario.schema';
 import HttpError from '../utils/httpError';
-import { Types } from 'mongoose';
-import { Rol } from '../models/interfaces/types';
 interface IUser {
   _id?: Types.ObjectId;
   nombre: string;

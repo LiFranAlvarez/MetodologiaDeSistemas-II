@@ -1,5 +1,5 @@
-import Clase from '../models/clase.schema';
 import { ClaseDTO, UpdateClaseDTO } from '../dtos/claseDTO';
+import Clase from '../models/clase.schema';
 
 export const getClases = async () => {
   return await Clase.find();

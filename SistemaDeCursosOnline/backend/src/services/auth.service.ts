@@ -1,5 +1,6 @@
-import Usuario from '../models/usuario.schema';
 import bcryptjs from 'bcryptjs';
+
+import Usuario from '../models/usuario.schema';
 import HttpError from '../utils/httpError';
 
 const loginService = async (email: string, password: string) => {

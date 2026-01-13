@@ -1,7 +1,8 @@
 import Curso from '../models/curso.schema';
-import { ICursoRepository } from './ICursoRepository';
 import { ICurso } from '../services/curso.service';
 import HttpError from '../utils/httpError';
+
+import { ICursoRepository } from './ICursoRepository';
 
 export class CursoMongoRepository implements ICursoRepository {
   async getById(idCurso: string): Promise<ICurso | null> {

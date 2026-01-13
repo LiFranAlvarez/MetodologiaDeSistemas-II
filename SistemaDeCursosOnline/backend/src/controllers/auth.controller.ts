@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import HttpError from '../utils/httpError';
-import signInService from '../services/auth.service';
 import Jwt from 'jsonwebtoken';
+
 import config from '../config/config';
+import signInService from '../services/auth.service';
+import HttpError from '../utils/httpError';
 
 async function signInController(req: Request, res: Response) {
   try {

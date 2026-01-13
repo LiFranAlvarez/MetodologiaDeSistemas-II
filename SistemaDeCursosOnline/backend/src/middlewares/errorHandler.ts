@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+
 import HttpError from '../utils/httpError.js';
 
 function errorHandler(err: unknown, _req: Request, res: Response, _next: NextFunction) {
