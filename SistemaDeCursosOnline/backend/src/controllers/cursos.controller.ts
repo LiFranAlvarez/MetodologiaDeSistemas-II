@@ -1,124 +1,48 @@
-import  CursosService from '../services/curso.service'
-import HttpError from '../utils/httpError';
-import { Request, Response } from 'express';
-import mongoose from 'mongoose';
-import userService from '../services/user.service';
+import { Request, Response } from "express";
+import { cursosService } from "../services";
+import { CursoFactory } from "../factories/cursoFactory";
+import { Types } from "mongoose";
 
-class CursosController{
-    async listCursos(req: Request, res:Response){
-        try {
-            const result = await CursosService.getAll();
-            if (!result) {
-                return res.status(200).json({message : 'No hay cursos cargados'});
-            }
-            return res.status(200).json(result);
-        } catch (error) {
-            if (error instanceof HttpError) {
-                return res.status(error.status).json({message : error.message})
-            }
-            console.error(error);
-            res.status(400).json(error);
-        }
-    };
-    async getCursoById(req: Request, res: Response) {
-        try {
-            const {idCurso}=req.params;
-            if(!mongoose.Types.ObjectId.isValid(idCurso)){
-                return res.status(400).json({message:"ID inválido"})
-            }
-            const curso = await CursosService.getById(req.params.idCurso).populate("profesor");
+export const crearCurso = async (req: Request, res: Response) => {
+  const dto = CursoFactory.fromRequest(req.body);
 
-            if (!curso) 
-                return res.status(404).json({ message: "Curso no encontrado" });
+  const curso = await cursosService.createOne({
+    ...dto,
+    descripcion: dto.descripcion ?? "",
+    profesor: Types.ObjectId.createFromHexString(req.user!.id),
+  });
 
-            return res.status(200).json(curso);
+  res.status(201).json({ success: true, data: curso });
+};
 
-        } catch (error) {
-            console.error("Error en getCursoById",error);
-            return res.status(500).json({ message: "Error al obtener el curso" });
-        }
-    }
+export const listCursos = async (_req: Request, res: Response) => {
+  const cursos = await cursosService.getAll();
+  res.status(200).json({ success: true, data: cursos });
+};
 
-    async createCurso(req: Request, res: Response) {
-        try {
-            const data = req.body;
-            console.log(data)
-            // Normalizar profesor: si viene como objeto {$oid: "..."} lo convertimos
-            const profesorId = typeof data.profesor === "object" && data.profesor.$oid 
-            ? data.profesor.$oid 
-            : data.profesor;
+export const getCursosByProfesor = async (req: Request, res: Response) => {
+  const cursos = await cursosService.getByProfesor(req.user!.id);
+  res.status(200).json({ success: true, data: cursos });
+};
 
-            if (!mongoose.Types.ObjectId.isValid(profesorId)) {
-            throw new HttpError("El id del profesor no es válido (CursoController.createCurso)", 400);
-            }
+export const updateCurso = async (req: Request, res: Response) => {
+  const dto = CursoFactory.fromRequest(req.body);
 
-            const profesor = await userService.getOneUser(profesorId);
+  const curso = await cursosService.updateOne(req.params.id, {
+    ...dto,
+    descripcion: dto.descripcion ?? "",
+    profesor: Types.ObjectId.createFromHexString(req.user!.id),
+  });
 
-            if (!profesor || profesor.rol !== "PROFESOR") {
-            throw new HttpError("Al crear un curso se le debe asignar un usuario con rol: PROFESOR", 400);
-            }
+  res.status(200).json({ success: true, data: curso });
+};
 
-            const result = await CursosService.createOne({
-            ...data,
-            profesor: profesorId // guardamos como string
-            });
+export const deleteCurso = async (req: Request, res: Response) => {
+  await cursosService.deleteOne(req.params.id);
+  res.status(200).json({ success: true, message: "Curso eliminado" });
+};
 
-            res.status(201).json(result);
-        } catch (error) {
-            if (error instanceof HttpError) {
-            return res.status(error.status).json({ message: error.message });
-            }
-            console.error(error);
-            res.status(500).json({ message: "Error interno del servidor" });
-        }
-    }
-
-    async updateCurso( req: Request, res: Response){
-        try {
-            const idCurso = req.params.idCurso;
-            const data = req.body
-            const result = await CursosService.updateOne(idCurso, data);
-            if (result === null) {
-                return res.status(500).json({message : 'No se pudo actualizar el curso'})
-            }
-            res.status(200).json({message : 'actualizado', datos : result});
-        } catch (error) {
-            if (error instanceof HttpError) {
-                return res.status(error.status).json({message : error.message})
-            }
-            console.error(error);
-            res.status(400).json(error);
-        }
-    };
-    async deleteCurso( req: Request, res: Response){
-        try {
-            const idCurso = req.params.idCurso;
-            const result = await CursosService.deleteOne(idCurso);
-            if (!result) {
-                return res.status(200).json({message : 'No se encontro curso para eliminar'})
-            }
-            return res.status(200).json({message : `Curso id: ${idCurso} ELIMINADO`, curso : result})
-        } catch (error) {
-            if (error instanceof HttpError) {
-                return res.status(error.status).json({message : error.message})
-            }
-            console.error(error);
-            res.status(400).json(error);
-        }
-    }
-    async getCursosByProfesor(req: Request, res: Response){
-        try {
-            const idProfesor = req.params.idProfesor;
-            const result = await CursosService.getByProfesor(idProfesor);
-            if (!result) return res.status(200).json({ message: 'No hay cursos para este profesor' });
-            return res.status(200).json(result);
-        } catch (error) {
-            if (error instanceof HttpError) {
-                return res.status(error.status).json({message : error.message})
-            }
-            console.error(error);
-            res.status(400).json(error);
-        }
-    }
-}
-export default new CursosController();
+export const getCursoById = async (req: Request, res: Response) => {
+  const curso = await cursosService.getById(req.params.id);
+  res.status(200).json({ success: true, data: curso });
+};

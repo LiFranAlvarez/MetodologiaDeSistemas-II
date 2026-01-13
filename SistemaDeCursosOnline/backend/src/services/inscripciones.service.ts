@@ -1,6 +1,5 @@
 import Inscripciones from "../models/inscripciones";
 import Usuario from '../models/usuario.schema';
-import Curso from '../models/curso.schema';
 import HttpError from '../utils/httpError';
 
 
@@ -16,12 +15,11 @@ class InscripcionService{
                 cursoId: idCurso,
                 usuarioId: idUser
             });;
-        } catch (error: any) {
+        } catch (error: unknown) {
             
             console.error("Error detallado de Mongoose en createOne:", error); 
-            
-            if (error.name === 'CastError') {
-                throw new HttpError("IDs de Curso o Usuario inválidos. Verifique el formato.", 400); 
+            if (error && typeof error === 'object' && 'name' in error && error.name === 'CastError') {
+                throw new HttpError("IDs de Curso o Usuario inválidos. Verifique el formato.", 400);
             }
             
             throw new HttpError("Fallo desconocido al crear la inscripción", 500);
@@ -30,7 +28,7 @@ class InscripcionService{
 
     async cancelOne( idInsc: string ){
         try {
-            const result = Inscripciones.findByIdAndUpdate(idInsc, {estadoInscripcion : 'CANCELADA'},{
+            const result = await Inscripciones.findByIdAndUpdate(idInsc, {estadoInscripcion : 'CANCELADA'},{
                 new : true
             })
             return result;
@@ -49,7 +47,6 @@ class InscripcionService{
                     return [];
                 }
                 const userIDs = [...new Set(inscripciones.map(i => i.usuarioId))];
-                 console.log(userIDs);
                 const alumnosInscritos = await Usuario.find({
                     _id: { $in: userIDs },
                     rol: 'ALUMNO'
@@ -82,7 +79,8 @@ class InscripcionService{
         try {
             return await Inscripciones.find();
         } catch (error) {
-            
+            console.error(error);
+            throw new HttpError("No se pudieron obtener las inscripciones", 500);
         }
     }
     

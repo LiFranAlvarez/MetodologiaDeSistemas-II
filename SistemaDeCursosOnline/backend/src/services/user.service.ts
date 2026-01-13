@@ -1,23 +1,20 @@
 import Usuario from '../models/usuario.schema'
 import HttpError from '../utils/httpError';
 import { Types } from "mongoose";
-import bcryptjs from 'bcryptjs';
-
-type RolUsuario = 'ADMIN' | 'PROFESOR' | 'ALUMNO';
+import { Rol } from '../models/interfaces/types';
 interface IUser {
     _id?: Types.ObjectId;
     nombre: string;
     dni?: string;
     email: string;
-    passwordHass?: string; 
-    rol?: RolUsuario; 
+    passwordHash?: string; 
+    rol?: Rol; 
 };
 
 class UserService{
     async createOneUser( data: IUser){
         try {
             const newUser = await Usuario.create(data);
-            console.log('USUARIO CREADO');
             return newUser;
         } catch (error) {
             throw new HttpError('No se pudo crear un usuario', 500);
@@ -38,7 +35,6 @@ class UserService{
                     new : true,
                     runValidators : true
                     });
-                    console.log('USUARIO ACTUALIZADO');
             return result;
         } catch (error) {
             throw new HttpError("No se pudo buscar y eliminar User", 500);
@@ -48,7 +44,6 @@ class UserService{
     async deleteOneUser( idUser: string){
         try {
             const deleted = await Usuario.findByIdAndDelete(idUser);
-            console.log('USUARIO ELIMINADO');
             return deleted;
         } catch (error) {
                 throw new HttpError("No se pudo eliminar service.DeleteOne", 500);

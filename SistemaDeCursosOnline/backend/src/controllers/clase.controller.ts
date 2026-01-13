@@ -13,7 +13,7 @@ export const getClaseById = async (req:Request, res:Response) => {
   try {
     const { id } = req.params;
     const clase = await claseService.getClaseById(id);
-    if (!clase) return res.status(404).json({ error: "Clase no encontrada" });
+    if (!clase) {return res.status(404).json({ error: "Clase no encontrada" });}
     res.json(clase);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener clase" });
@@ -34,7 +34,7 @@ export const updateClase = async (req:Request, res:Response) => {
   try {
     const { id } = req.params;
     const clase = await claseService.updateClase(id, req.body);
-    if (!clase) return res.status(404).json({ error: "Clase no encontrada" });
+    if (!clase) {return res.status(404).json({ error: "Clase no encontrada" });}
     res.json(clase);
   } catch (error) {
     res.status(400).json({ error: "Error al actualizar clase" });
@@ -45,7 +45,7 @@ export const deleteClase = async (req:Request, res:Response) => {
   try {
     const { id } = req.params;
     const clase = await claseService.deleteClase(id);
-    if (!clase) return res.status(404).json({ error: "Clase no encontrada" });
+    if (!clase) {return res.status(404).json({ error: "Clase no encontrada" });}
     res.json({ message: "Clase eliminada" });
   } catch (error) {
     res.status(400).json({ error: "Error al eliminar clase" });
