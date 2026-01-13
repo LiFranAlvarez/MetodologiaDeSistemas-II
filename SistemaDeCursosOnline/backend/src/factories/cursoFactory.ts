@@ -1,4 +1,4 @@
-import { EstadoCurso } from "../models/interfaces/types";
+import { EstadoCurso } from '../models/interfaces/types';
 
 export interface CursoDTO {
   titulo: string;
@@ -11,7 +11,7 @@ export class CursoFactory {
     return {
       titulo: typeof body.titulo === 'string' ? body.titulo : '',
       descripcion: typeof body.descripcion === 'string' ? body.descripcion : undefined,
-      estado: (body.estado as EstadoCurso) ?? "PENDIENTE",
+      estado: (body.estado as EstadoCurso) ?? 'PENDIENTE',
     };
   }
 }

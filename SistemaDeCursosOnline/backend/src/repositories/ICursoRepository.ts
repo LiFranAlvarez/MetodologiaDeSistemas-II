@@ -1,4 +1,4 @@
-import { ICurso } from "../services/curso.service";
+import { ICurso } from '../services/curso.service';
 
 export interface ICursoRepository {
   findAll(): Promise<ICurso[]>;

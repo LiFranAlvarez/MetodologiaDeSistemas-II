@@ -1,7 +1,7 @@
-import { Types } from "mongoose";
-import { ICursoRepository } from "../repositories/ICursoRepository";
-import HttpError from "../utils/httpError";
-import { EstadoCurso } from "../models/interfaces/types";
+import { Types } from 'mongoose';
+import { ICursoRepository } from '../repositories/ICursoRepository';
+import HttpError from '../utils/httpError';
+import { EstadoCurso } from '../models/interfaces/types';
 
 export interface ICurso {
   _id?: Types.ObjectId;
@@ -31,7 +31,7 @@ export class CursosService {
   async updateOne(idCurso: string, data: ICurso) {
     const curso = await this.repo.update(idCurso, data);
     if (!curso) {
-      throw new HttpError("Curso no encontrado", 404);
+      throw new HttpError('Curso no encontrado', 404);
     }
     return curso;
   }

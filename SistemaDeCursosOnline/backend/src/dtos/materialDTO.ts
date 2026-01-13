@@ -1,9 +1,9 @@
-import { TipoContenido  } from "../models/interfaces/types";
+import { TipoContenido } from '../models/interfaces/types';
 export interface MaterialDTO {
   titulo: string;
   url: string;
   tipo: TipoContenido;
-  claseId: string; 
+  claseId: string;
   descripcion?: string;
 }
 

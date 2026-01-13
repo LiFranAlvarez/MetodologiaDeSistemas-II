@@ -3,7 +3,7 @@ export interface ClaseDTO {
   descripcion?: string;
   fecha?: Date | string;
   linkGrabacion?: string;
-  cursoId: string; 
+  cursoId: string;
 }
 
 export type CreateClaseDTO = ClaseDTO | ClaseDTO[];
