@@ -1,12 +1,8 @@
-import { Types } from "mongoose";
-import { ICursoRepository } from "../repositories/ICursoRepository";
-import HttpError from "../utils/httpError";
+import { Types } from 'mongoose';
 
-export type EstadoCurso =
-  | "COMPLETADO"
-  | "EN CURSO"
-  | "PENDIENTE"
-  | "CANCELADO";
+import { EstadoCurso } from '../models/interfaces/types';
+import { ICursoRepository } from '../repositories/ICursoRepository';
+import HttpError from '../utils/httpError';
 
 export interface ICurso {
   _id?: Types.ObjectId;
@@ -18,7 +14,6 @@ export interface ICurso {
 
 export class CursosService {
   constructor(private readonly repo: ICursoRepository) {}
-
   getById(idCurso: string) {
     return this.repo.getById(idCurso);
   }
@@ -37,7 +32,7 @@ export class CursosService {
   async updateOne(idCurso: string, data: ICurso) {
     const curso = await this.repo.update(idCurso, data);
     if (!curso) {
-      throw new HttpError("Curso no encontrado", 404);
+      throw new HttpError('Curso no encontrado', 404);
     }
     return curso;
   }

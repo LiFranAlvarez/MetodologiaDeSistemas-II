@@ -1,4 +1,5 @@
-import Clase from "../models/clase.schema";
+import { ClaseDTO, UpdateClaseDTO } from '../dtos/claseDTO';
+import Clase from '../models/clase.schema';
 
 export const getClases = async () => {
   return await Clase.find();
@@ -8,15 +9,15 @@ export const getClaseById = async (id: string) => {
   return await Clase.findById(id);
 };
 
-export const createClase = async (data: any | any[]) => {
-    if (Array.isArray(data)) {
-        return await Clase.insertMany(data);
-    }
-    const clase = new Clase(data);
-    return await clase.save();
+export const createClase = async (data: ClaseDTO | ClaseDTO[]) => {
+  if (Array.isArray(data)) {
+    return await Clase.insertMany(data);
+  }
+  const clase = new Clase(data);
+  return await clase.save();
 };
 
-export const updateClase = async (id: string, data: any) => {
+export const updateClase = async (id: string, data: UpdateClaseDTO) => {
   return await Clase.findByIdAndUpdate(id, data, { new: true });
 };
 

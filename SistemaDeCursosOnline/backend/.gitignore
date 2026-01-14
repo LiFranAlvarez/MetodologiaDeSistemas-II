@@ -1,3 +1,44 @@
-/dist
-/node_modules
-/.env
+# --- DEPENDENCIAS ---
+node_modules/
+package-lock.json
+yarn.lock
+
+# --- COMPILACIÓN ---
+dist/
+build/
+*.tsbuildinfo
+
+# --- VARIABLES DE ENTORNO ---
+.env
+.env.local
+.env.*.local
+
+# --- BASES DE DATOS (Mencionado en la corrección) ---
+*.sqlite
+*.db
+*.db-journal
+
+# --- ARCHIVOS BASURA (Mencionado en la corrección) ---
+*.zip
+*.rar
+*.7z
+
+# --- IDE & OS ---
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.sw?
+
+# --- TESTING & LOGS ---
+/coverage/
+.nyc_output/
+logs/
+*.log
+npm-debug.log*
+
+# --- TEMPORALES ---
+*.tmp
+*.temp
+*~

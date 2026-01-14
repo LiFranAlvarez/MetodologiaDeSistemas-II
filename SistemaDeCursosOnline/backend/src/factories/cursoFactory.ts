@@ -1,4 +1,4 @@
-import { EstadoCurso } from "../services/curso.service";
+import { EstadoCurso } from '../models/interfaces/types';
 
 export interface CursoDTO {
   titulo: string;
@@ -7,11 +7,11 @@ export interface CursoDTO {
 }
 
 export class CursoFactory {
-  static fromRequest(body: any): CursoDTO {
+  static fromRequest(body: Record<string, unknown>): CursoDTO {
     return {
-      titulo: body.titulo,
-      descripcion: body.descripcion,
-      estado: body.estado ?? "PENDIENTE",
+      titulo: typeof body.titulo === 'string' ? body.titulo : '',
+      descripcion: typeof body.descripcion === 'string' ? body.descripcion : undefined,
+      estado: (body.estado as EstadoCurso) ?? 'PENDIENTE',
     };
   }
 }

@@ -1,7 +1,10 @@
-import { EstadoCurso } from "../services/curso.service";
+import { EstadoCurso } from '../models/interfaces/types';
 
-export interface CursoDTO {
+export interface CreateCursoDTO {
   titulo: string;
   descripcion?: string;
   estado?: EstadoCurso;
+  profesor: string;
 }
+
+export interface UpdateCursoDTO extends Partial<CreateCursoDTO> {}

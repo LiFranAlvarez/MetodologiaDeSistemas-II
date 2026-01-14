@@ -1,0 +1,33 @@
+# --- Ignorar carpetas pesadas en todo el proyecto ---
+node_modules/
+dist/
+build/
+
+# --- BASE DE DATOS (Corrección específica del profe) ---
+*.sqlite
+*.db
+*.db-journal
+
+# --- COMPRIMIDOS ---
+*.zip
+*.rar
+*.7z
+*.tar
+
+# --- VARIABLES DE ENTORNO (Seguridad) ---
+.env
+.env.local
+.env.*.local
+
+# --- SISTEMA Y EDITORES ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- LOGS Y CACHE ---
+*.log
+npm-debug.log*
+.cache/

@@ -10,7 +10,6 @@ const decodeJwt = (token: string) => {
     const payload = token.split('.')[1];
     const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
     return JSON.parse(decoded) as { rol?: string; _id?: string };
-    console.log(decoded)
   } catch {
     return null;
   }
@@ -35,8 +34,6 @@ const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validación con Zod
     const result = loginSchema.safeParse(formData);
     if (!result.success) {
       const rawErrors = result.error.flatten().fieldErrors;
