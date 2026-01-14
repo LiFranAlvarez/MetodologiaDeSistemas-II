@@ -4,6 +4,14 @@ import { ICurso } from "../services/curso.service";
 import HttpError from "../utils/httpError";
 
 export class CursoMongoRepository implements ICursoRepository {
+  async getById(idCurso: string): Promise<ICurso | null> {
+    try {
+      return await Curso.findById(idCurso);
+    } catch {
+      throw new HttpError("Error DB obteniendo curso por ID", 500);
+    }
+}
+
   async findAll(): Promise<ICurso[]> {
     try {
       return await Curso.find();

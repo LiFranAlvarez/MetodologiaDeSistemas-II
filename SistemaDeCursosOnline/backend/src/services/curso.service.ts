@@ -19,6 +19,9 @@ export interface ICurso {
 export class CursosService {
   constructor(private readonly repo: ICursoRepository) {}
 
+  getById(idCurso: string) {
+    return this.repo.getById(idCurso);
+  }
   getAll() {
     return this.repo.findAll();
   }

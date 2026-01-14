@@ -41,3 +41,9 @@ export const deleteCurso = async (req: Request, res: Response) => {
   await cursosService.deleteOne(req.params.id);
   res.status(200).json({ success: true, message: "Curso eliminado" });
 };
+
+export const getCursoById = async (req: Request, res: Response) => {
+  const curso = await cursosService.getById(req.params.id);
+  res.status(200).json({ success: true, data: curso });
+};
+
