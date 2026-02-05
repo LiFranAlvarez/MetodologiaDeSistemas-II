@@ -1,15 +1,14 @@
-import cors from 'cors';
 import express from 'express';
+import cors from 'cors';
 import morgan from 'morgan';
-
 import Database from './config/db.connect';
-import errorHandler from './middlewares/errorHandler';
-import authRouter from './routes/auth.route';
-import claseRoutes from './routes/clase.routes';
+import userRouter from './routes/usuario.route';
 import cursoRouter from './routes/curso.routes';
 import inscripcionRouter from './routes/inscripciones.route';
+import authRouter from './routes/auth.route';
+import errorHandler from './middlewares/errorHandler';
+import claseRoutes from './routes/clase.routes';
 import materialRoutes from './routes/material.routes';
-import userRouter from './routes/usuario.route';
 
 class Server {
   public app: express.Application;
@@ -20,10 +19,12 @@ class Server {
     this.app = express();
     this.middlewares();
     this.routes();
+    this.app.use(errorHandler);
   }
 
   middlewares() {
     this.app.use(express.json({ limit: '150mb' }));
+
     this.app.use(morgan('dev'));
     this.app.use((req, _res, next) => {
       next();
@@ -37,8 +38,8 @@ class Server {
     this.app.use('/api', cursoRouter);
     this.app.use('/api', inscripcionRouter);
     this.app.use('/api', authRouter);
-    this.app.use(errorHandler);
   }
+
   async start(callback: () => void) {
     await Database.getInstance();
     this.app.listen(this.port, callback);

@@ -16,15 +16,19 @@ const CatalogoCursos = () => {
         const res = await fetch(`${API_URL}/cursos`);
         if (!res.ok) throw new Error("No se pudieron obtener los cursos");
 
-        const data:unknown[] = await res.json();
-        const normalizados: Curso[] = data.map((item)=>{const c = item as Curso & { describe?: string }; // Intersección temporal para la limpieza
-          return {
-            ...c,
-            descripcion: c.descripcion || c.describe || "Sin descripción disponible",
-          };
-        });
-        setTodosLosCursos(normalizados);
-        setResultados(normalizados);
+       const json = await res.json();
+
+if (!json.success) {
+  throw new Error("Respuesta inválida del servidor");
+}
+
+const normalizados: Curso[] = json.data.map((item: Curso & { describe?: string }) => ({
+  ...item,
+  descripcion: item.descripcion || item.describe || "Sin descripción disponible",
+}));
+
+setTodosLosCursos(normalizados);
+setResultados(normalizados);
 
       } catch (error) {
         console.error('Error al cargar cursos:', error);

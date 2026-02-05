@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import HttpError from '../utils/httpError';
 
-function errorHandler(err: unknown, _req: Request, res: Response, _next: NextFunction) {
+function errorHandler(err: any, _req: Request, res: Response, _next: NextFunction) {
   console.error('--- INTERNAL ERROR LOG ---');
   console.error(err);
 
@@ -23,3 +23,4 @@ function errorHandler(err: unknown, _req: Request, res: Response, _next: NextFun
 }
 
 export default errorHandler;
+

@@ -18,7 +18,8 @@ const CrearCurso = () => {
                 estado: 'EN CURSO', 
             };
 
-            const res = await fetch('/api/cursos', {
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+            const res = await fetch(`${API_URL}/cursos`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -32,6 +33,7 @@ const CrearCurso = () => {
                 throw new Error(err.message || `Error ${res.status}: Fallo en el servidor.`);
             }
 
+            
             alert('Curso creado con éxito'); 
             navigate('/dashboard/maestro');
         
